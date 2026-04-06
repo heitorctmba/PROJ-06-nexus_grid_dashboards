@@ -1,0 +1,300 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 13,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.inverter-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 20px;\n  background: linear-gradient(135deg, rgba(45,45,50,0.95), rgba(35,35,40,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.08);\n  font-family: Inter, system-ui, sans-serif;\n}\n.inverter-header__nav {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n}\n.inverter-header__back {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 8px 16px;\n  background: rgba(99,102,241,0.1);\n  border: 1px solid rgba(99,102,241,0.25);\n  border-radius: 8px;\n  color: #818cf8;\n  text-decoration: none;\n  font-size: 13px;\n  font-weight: 500;\n  transition: all 0.2s ease;\n}\n.inverter-header__back:hover {\n  background: rgba(99,102,241,0.2);\n  border-color: rgba(99,102,241,0.4);\n  transform: translateX(-2px);\n}\n.inverter-header__title {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n.inverter-header__name {\n  font-size: 16px;\n  font-weight: 600;\n  color: #e5e7eb;\n}\n.inverter-header__subtitle {\n  font-size: 11px;\n  color: #6b7280;\n}\n.inverter-header__stats {\n  display: flex;\n  gap: 16px;\n}\n.inverter-header__stat {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 8px 20px;\n  background: rgba(30,30,35,0.6);\n  border-radius: 8px;\n  border: 1px solid rgba(255,255,255,0.05);\n  min-width: 80px;\n}\n.inverter-header__stat-value {\n  font-size: 20px;\n  font-weight: 700;\n  font-variant-numeric: tabular-nums;\n}\n.inverter-header__stat-value--green { color: #4ade80; }\n.inverter-header__stat-value--red { color: #f87171; }\n.inverter-header__stat-label {\n  font-size: 10px;\n  color: #6b7280;\n  text-transform: uppercase;\n}\n</style>\n\n<div class=\"inverter-header\">\n  <div class=\"inverter-header__nav\">\n    <a href=\"/d/ad4v9dd/powerplant-view?var-power_plant_id={{data.[0].power_plant_id}}\" class=\"inverter-header__back\">\n      <span>←</span> Back\n    </a>\n    <div class=\"inverter-header__title\">\n      <span class=\"inverter-header__name\">{{data.[0].power_plant_name}}</span>\n      <span class=\"inverter-header__subtitle\">Inverters ({{data.length}} total)</span>\n    </div>\n  </div>\n  <div class=\"inverter-header__stats\">\n    <div class=\"inverter-header__stat\">\n      <span class=\"inverter-header__stat-value inverter-header__stat-value--green\">{{countGenerating data}}</span>\n      <span class=\"inverter-header__stat-label\">Generating</span>\n    </div>\n    <div class=\"inverter-header__stat\">\n      <span class=\"inverter-header__stat-value inverter-header__stat-value--red\">{{countCritical data}}</span>\n      <span class=\"inverter-header__stat-label\">Critical</span>\n    </div>\n  </div>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "context.handlebars.registerHelper('countGenerating', function(data) {\n  return data.filter(d => d.state_simplified === 2).length;\n});\n\ncontext.handlebars.registerHelper('countCritical', function(data) {\n  return data.filter(d => d.state_simplified !== 2).length;\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT ON (d.id)\n    d.id as device_id,\n    pp.id as power_plant_id,\n    pp.name as power_plant_name,\n    COALESCE(\n        (SELECT value_numeric::integer\n         FROM dbt.int_inverter_latest_readings r\n         WHERE r.device_id = d.id AND r.field_name = 'State: Simplified'\n         LIMIT 1),\n        0\n    ) AS state_simplified\nFROM public.tb_devices d\nJOIN public.tb_power_plants pp ON pp.id = d.power_plant_id\nWHERE d.device_type_id = 1\n  AND d.is_active = true\n  AND d.power_plant_id = $power_plant_id\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n/* ===========================================\n   INVERTER TABLE - BEM CSS\n   =========================================== */\n\n.inverter-table {\n  font-family: Inter, system-ui, sans-serif;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0;\n  border-radius: 10px;\n  overflow: hidden;\n  font-size: 11px;\n}\n\n.inverter-table__thead {\n  background: linear-gradient(135deg, rgba(33,38,45,1), rgba(28,33,40,1));\n}\n\n.inverter-table__thead th {\n  padding: 10px 8px;\n  text-align: left;\n  font-weight: 600;\n  font-size: 9px;\n  letter-spacing: 0.5px;\n  text-transform: uppercase;\n  color: #8b949e;\n  border-bottom: 1px solid #30363d;\n}\n\n.inverter-table__row {\n  transition: all 0.15s ease;\n  cursor: pointer;\n}\n\n.inverter-table__row:nth-child(odd) { background: rgba(22,27,34,0.8); }\n.inverter-table__row:nth-child(even) { background: rgba(28,33,40,0.8); }\n.inverter-table__row:hover { background: rgba(48,54,61,0.9) !important; }\n\n.inverter-table__row td {\n  padding: 8px;\n  border-bottom: 1px solid rgba(48,54,61,0.5);\n  vertical-align: middle;\n  color: #e6edf3;\n}\n\n/* Status badge */\n.inverter-table__status {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  padding: 3px 8px;\n  border-radius: 5px;\n  font-size: 9px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n\n.inverter-table__status--generating {\n  background: rgba(34,197,94,0.15);\n  color: #4ade80;\n  border: 1px solid rgba(34,197,94,0.3);\n}\n\n.inverter-table__status--critical {\n  background: rgba(239,68,68,0.15);\n  color: #f87171;\n  border: 1px solid rgba(239,68,68,0.3);\n}\n\n.inverter-table__dot {\n  width: 5px;\n  height: 5px;\n  border-radius: 50%;\n  background: currentColor;\n}\n\n/* Device name link */\n.inverter-table__name {\n  font-weight: 500;\n  color: #58a6ff;\n  text-decoration: none;\n  transition: color 0.15s ease;\n}\n\n.inverter-table__name:hover {\n  color: #79b8ff;\n  text-decoration: underline;\n}\n\n/* Values */\n.inverter-table__value {\n  font-variant-numeric: tabular-nums;\n}\n\n.inverter-table__value--power {\n  color: #58a6ff;\n  font-weight: 600;\n}\n\n.inverter-table__value--efficiency {\n  font-weight: 500;\n}\n\n.inverter-table__value--good { color: #4ade80; }\n.inverter-table__value--warning { color: #fbbf24; }\n.inverter-table__value--bad { color: #f87171; }\n\n.inverter-table__unit {\n  font-size: 8px;\n  color: #6b7280;\n  margin-left: 1px;\n}\n\n/* Timestamp */\n.inverter-table__time {\n  font-size: 10px;\n  color: #8b949e;\n  font-variant-numeric: tabular-nums;\n}\n</style>\n\n<table class=\"inverter-table\">\n  <thead class=\"inverter-table__thead\">\n    <tr>\n      <th style=\"width: 70px;\">Status</th>\n      <th style=\"width: 110px;\">Inverter</th>\n      <th style=\"width: 50px;\">Cabin</th>\n      <th>Power</th>\n      <th>Efficiency</th>\n      <th>Temp</th>\n      <th>Freq</th>\n      <th>PF</th>\n      <th style=\"width: 100px;\">Last Reading</th>\n    </tr>\n  </thead>\n  <tbody>\n    {{#each data}}\n    <tr class=\"inverter-table__row\" onclick=\"window.location.href='/d/adsn27w/device-view?var-device_id={{this.device_id}}&var-power_plant_id={{this.power_plant_id}}'\">\n      <td>\n        <span class=\"inverter-table__status {{statusClass this.state_simplified}}\">\n          <span class=\"inverter-table__dot\"></span>\n          {{statusLabel this.state_simplified}}\n        </span>\n      </td>\n      <td>\n        <a href=\"/d/adsn27w/device-view?var-device_id={{this.device_id}}&var-power_plant_id={{this.power_plant_id}}\" class=\"inverter-table__name\" onclick=\"event.stopPropagation()\">\n          {{this.inversor}}\n        </a>\n      </td>\n      <td>{{this.cabine}}</td>\n      <td><span class=\"inverter-table__value inverter-table__value--power\">{{this.potencia_kw}}<span class=\"inverter-table__unit\">kW</span></span></td>\n      <td><span class=\"inverter-table__value inverter-table__value--efficiency {{efficiencyColor this.eficiencia_pct}}\">{{this.eficiencia_pct}}<span class=\"inverter-table__unit\">%</span></span></td>\n      <td><span class=\"inverter-table__value\">{{this.temp_c}}<span class=\"inverter-table__unit\">°C</span></span></td>\n      <td><span class=\"inverter-table__value\">{{this.freq_hz}}<span class=\"inverter-table__unit\">Hz</span></span></td>\n      <td><span class=\"inverter-table__value\">{{this.fp}}</span></td>\n      <td><span class=\"inverter-table__time\">{{this.ultima_leitura}}</span></td>\n    </tr>\n    {{/each}}\n  </tbody>\n</table>",
+        "contentPartials": [],
+        "defaultContent": "No inverters found for this power plant.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// Status class based on state_simplified\ncontext.handlebars.registerHelper('statusClass', function(state) {\n  return state === 2 ? 'inverter-table__status--generating' : 'inverter-table__status--critical';\n});\n\n// Status label\ncontext.handlebars.registerHelper('statusLabel', function(state) {\n  return state === 2 ? 'Generating' : 'Critical';\n});\n\n// Efficiency color\ncontext.handlebars.registerHelper('efficiencyColor', function(value) {\n  if (value >= 95) return 'inverter-table__value--good';\n  if (value >= 80) return 'inverter-table__value--warning';\n  return 'inverter-table__value--bad';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH inverter_metrics AS (\n    SELECT \n        device_id,\n        MAX(CASE WHEN field_name = 'Active Power' THEN value_numeric END) as potencia_ativa_kw,\n        MAX(CASE WHEN field_name = 'Efficiency' THEN value_numeric END) as eficiencia_pct,\n        MAX(CASE WHEN field_name = 'Temperature: internal' THEN value_numeric END) as temperatura_c,\n        MAX(CASE WHEN field_name = 'Frequency' THEN value_numeric END) as frequencia_hz,\n        MAX(CASE WHEN field_name = 'Power Factor' THEN value_numeric END) as fator_potencia,\n        MAX(CASE WHEN field_name = 'State: Simplified' THEN value_numeric END) as state_simplified,\n        MAX(timestamp) as ultima_leitura\n    FROM dbt.int_inverter_latest_readings\n    WHERE power_plant_id = $power_plant_id\n    GROUP BY device_id\n)\nSELECT \n    d.id as device_id,\n    pp.id as power_plant_id,\n    d.device_name as inversor,\n    COALESCE(d.cabin, 0) as cabine,\n    ROUND(COALESCE(im.potencia_ativa_kw, 0)::numeric, 2) as potencia_kw,\n    ROUND(COALESCE(im.eficiencia_pct, 0)::numeric, 1) as eficiencia_pct,\n    ROUND(COALESCE(im.temperatura_c, 0)::numeric, 1) as temp_c,\n    ROUND(COALESCE(im.frequencia_hz, 0)::numeric, 2) as freq_hz,\n    ROUND(COALESCE(im.fator_potencia, 0)::numeric, 3) as fp,\n    COALESCE(im.state_simplified, 0)::integer as state_simplified,\n    TO_CHAR(im.ultima_leitura, 'DD/MM/YY HH24:MI') as ultima_leitura\nFROM public.tb_devices d\nJOIN public.tb_power_plants pp ON pp.id = d.power_plant_id\nLEFT JOIN inverter_metrics im ON im.device_id = d.id\nWHERE d.device_type_id = 1\n  AND d.is_active = true\n  AND d.power_plant_id = $power_plant_id\nORDER BY \n  CASE WHEN COALESCE(im.state_simplified, 0) != 2 THEN 0 ELSE 1 END,\n  device_id",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      "id": 3,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n/* ===========================================\n   INVERTER STRINGS GRID - BEM CSS\n   =========================================== */\n\n.strings-grid {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 12px;\n  padding: 12px;\n  font-family: Inter, system-ui, sans-serif;\n}\n\n.strings-grid__card {\n  background: linear-gradient(135deg, rgba(30,30,35,0.95), rgba(25,25,30,0.95));\n  border: 1px solid rgba(255,255,255,0.08);\n  border-radius: 10px;\n  overflow: hidden;\n  transition: all 0.2s ease;\n  cursor: pointer;\n}\n\n.strings-grid__card:hover {\n  border-color: rgba(255,255,255,0.15);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0,0,0,0.3);\n}\n\n.strings-grid__header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px 14px;\n  background: linear-gradient(135deg, rgba(40,40,45,0.95), rgba(35,35,40,0.95));\n  border-bottom: 1px solid rgba(255,255,255,0.05);\n}\n\n.strings-grid__name {\n  font-weight: 600;\n  font-size: 12px;\n  color: #e5e7eb;\n}\n\n.strings-grid__status {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  padding: 2px 8px;\n  border-radius: 4px;\n  font-size: 9px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n\n.strings-grid__status--ok {\n  background: rgba(34,197,94,0.15);\n  color: #4ade80;\n}\n\n.strings-grid__status--critical {\n  background: rgba(239,68,68,0.15);\n  color: #f87171;\n}\n\n.strings-grid__strings {\n  display: grid;\n  grid-template-columns: repeat(6, 1fr);\n  gap: 5px;\n  padding: 10px;\n}\n\n.strings-grid__string {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 6px 4px;\n  border-radius: 5px;\n  transition: all 0.15s ease;\n}\n\n.strings-grid__string--ok {\n  background: rgba(34,197,94,0.1);\n  border: 1px solid rgba(34,197,94,0.25);\n}\n\n.strings-grid__string--fault {\n  background: rgba(239,68,68,0.12);\n  border: 1px solid rgba(239,68,68,0.3);\n}\n\n.strings-grid__string-num {\n  font-size: 8px;\n  color: #6b7280;\n}\n\n.strings-grid__string-val {\n  font-size: 10px;\n  font-weight: 600;\n  font-variant-numeric: tabular-nums;\n}\n\n.strings-grid__string--ok .strings-grid__string-val {\n  color: #4ade80;\n}\n\n.strings-grid__string--fault .strings-grid__string-val {\n  color: #f87171;\n}\n</style>\n\n<div class=\"strings-grid\">\n  {{#each (groupBy data \"device_id\")}}\n  <div class=\"strings-grid__card\" onclick=\"window.location.href='/d/adsn27w/device-view?var-device_id={{key}}&var-power_plant_id={{items.[0].power_plant_id}}'\">\n    <div class=\"strings-grid__header\">\n      <span class=\"strings-grid__name\">{{items.[0].device_name}}</span>\n      <span class=\"strings-grid__status {{cardStatusClass items.[0].state_simplified}}\">{{cardStatusLabel items.[0].state_simplified}}</span>\n    </div>\n    <div class=\"strings-grid__strings\">\n      {{#each items}}\n      <div class=\"strings-grid__string {{stringClass this.string_current}}\">\n        <span class=\"strings-grid__string-num\">S{{this.string_number}}</span>\n        <span class=\"strings-grid__string-val\">{{this.string_current}}A</span>\n      </div>\n      {{/each}}\n    </div>\n  </div>\n  {{/each}}\n</div>",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "context.handlebars.registerHelper(\"groupBy\", function (array, key) {\n  const grouped = {};\n  array.forEach(item => {\n    const groupKey = item[key];\n    if (!grouped[groupKey]) {\n      grouped[groupKey] = [];\n    }\n    grouped[groupKey].push(item);\n  });\n  return Object.entries(grouped).map(([k, v]) => ({ key: k, items: v }));\n});\n\ncontext.handlebars.registerHelper('cardStatusClass', function(state) {\n  return state === 2 ? 'strings-grid__status--ok' : 'strings-grid__status--critical';\n});\n\ncontext.handlebars.registerHelper('cardStatusLabel', function(state) {\n  return state === 2 ? 'OK' : 'CRITICAL';\n});\n\ncontext.handlebars.registerHelper('stringClass', function(current) {\n  return current >= 1 ? 'strings-grid__string--ok' : 'strings-grid__string--fault';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n    device_id,\n    power_plant_id,\n    device_name,\n    string_number,\n    string_current,\n    state_simplified,\n    timestamp\nFROM dbt.stg_inverter_string_data\nWHERE power_plant_id IN (${power_plant_id})\nORDER BY device_id, string_number",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "*",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "dbt.stg_inverter_string_data"
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "(312) São Bento V",
+          "value": "5"
+        },
+        "definition": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nWHERE is_active = true\nORDER BY name;\n",
+        "name": "power_plant_id",
+        "options": [],
+        "query": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nWHERE is_active = true\nORDER BY name;\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Inverter_view",
+  "uid": "adhhz4x",
+  "version": 41
+}

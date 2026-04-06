@@ -1,0 +1,214 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 10,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.logger-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 20px;\n  background: linear-gradient(135deg, rgba(45,45,50,0.95), rgba(35,35,40,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.08);\n  font-family: Inter, system-ui, sans-serif;\n}\n.logger-header__nav {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n}\n.logger-header__back {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 8px 16px;\n  background: rgba(99,102,241,0.1);\n  border: 1px solid rgba(99,102,241,0.25);\n  border-radius: 8px;\n  color: #818cf8;\n  text-decoration: none;\n  font-size: 13px;\n  font-weight: 500;\n  transition: all 0.2s ease;\n}\n.logger-header__back:hover {\n  background: rgba(99,102,241,0.2);\n  border-color: rgba(99,102,241,0.4);\n  transform: translateX(-2px);\n}\n.logger-header__title {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n.logger-header__name {\n  font-size: 16px;\n  font-weight: 600;\n  color: #e5e7eb;\n}\n.logger-header__subtitle {\n  font-size: 11px;\n  color: #6b7280;\n}\n.logger-header__stats {\n  display: flex;\n  gap: 20px;\n}\n.logger-header__stat {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 8px 16px;\n  background: rgba(30,30,35,0.6);\n  border-radius: 8px;\n  border: 1px solid rgba(255,255,255,0.05);\n}\n.logger-header__stat-value {\n  font-size: 18px;\n  font-weight: 600;\n}\n.logger-header__stat-value--green { color: #4ade80; }\n.logger-header__stat-value--yellow { color: #fbbf24; }\n.logger-header__stat-value--gray { color: #9ca3af; }\n.logger-header__stat-label {\n  font-size: 10px;\n  color: #6b7280;\n  text-transform: uppercase;\n}\n</style>\n\n<div class=\"logger-header\">\n  <div class=\"logger-header__nav\">\n    <a href=\"/d/ad4v9dd/powerplant-view?var-power_plant_id={{data.[0].power_plant_id}}\" class=\"logger-header__back\">\n      <span>←</span> Back\n    </a>\n    <div class=\"logger-header__title\">\n      <span class=\"logger-header__name\">{{data.[0].power_plant_name}}</span>\n      <span class=\"logger-header__subtitle\">Smart Loggers</span>\n    </div>\n  </div>\n  <div class=\"logger-header__stats\">\n    <div class=\"logger-header__stat\">\n      <span class=\"logger-header__stat-value logger-header__stat-value--green\">{{countOnline data}}</span>\n      <span class=\"logger-header__stat-label\">Online</span>\n    </div>\n    <div class=\"logger-header__stat\">\n      <span class=\"logger-header__stat-value logger-header__stat-value--gray\">{{countOffline data}}</span>\n      <span class=\"logger-header__stat-label\">Offline</span>\n    </div>\n  </div>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "context.handlebars.registerHelper('countOnline', function(data) {\n  return data.filter(d => d.timestamp !== null).length;\n});\n\ncontext.handlebars.registerHelper('countOffline', function(data) {\n  return data.filter(d => d.timestamp === null).length;\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    d.id as device_id,\n    pp.id as power_plant_id,\n    pp.name as power_plant_name,\n    lr.timestamp\nFROM public.tb_devices d\nJOIN public.tb_power_plants pp ON pp.id = d.power_plant_id\nLEFT JOIN dbt.int_logger_latest_readings lr ON lr.device_id = d.id\nWHERE d.device_type_id = 3\n  AND d.is_active = true\n  AND d.power_plant_id = $power_plant_id",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n/* ===========================================\n   LOGGER TABLE - BEM CSS\n   =========================================== */\n\n.logger-table {\n  font-family: Inter, system-ui, sans-serif;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0;\n  border-radius: 10px;\n  overflow: hidden;\n  font-size: 12px;\n}\n\n.logger-table__thead {\n  background: linear-gradient(135deg, rgba(33,38,45,1), rgba(28,33,40,1));\n}\n\n.logger-table__thead th {\n  padding: 12px 10px;\n  text-align: left;\n  font-weight: 600;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n  text-transform: uppercase;\n  color: #8b949e;\n  border-bottom: 1px solid #30363d;\n}\n\n.logger-table__row {\n  transition: all 0.15s ease;\n  cursor: pointer;\n}\n\n.logger-table__row:nth-child(odd) { background: rgba(22,27,34,0.8); }\n.logger-table__row:nth-child(even) { background: rgba(28,33,40,0.8); }\n.logger-table__row:hover { background: rgba(48,54,61,0.9) !important; }\n\n.logger-table__row td {\n  padding: 10px;\n  border-bottom: 1px solid rgba(48,54,61,0.5);\n  vertical-align: middle;\n  color: #e6edf3;\n}\n\n/* Status badge */\n.logger-table__status {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  padding: 4px 10px;\n  border-radius: 6px;\n  font-size: 10px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n\n.logger-table__status--online {\n  background: rgba(34,197,94,0.15);\n  color: #4ade80;\n  border: 1px solid rgba(34,197,94,0.3);\n}\n\n.logger-table__status--offline {\n  background: rgba(107,114,128,0.15);\n  color: #9ca3af;\n  border: 1px solid rgba(107,114,128,0.3);\n}\n\n.logger-table__dot {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: currentColor;\n}\n\n/* Device name link */\n.logger-table__name {\n  font-weight: 500;\n  color: #58a6ff;\n  text-decoration: none;\n  transition: color 0.15s ease;\n}\n\n.logger-table__name:hover {\n  color: #79b8ff;\n  text-decoration: underline;\n}\n\n/* Values */\n.logger-table__value {\n  font-variant-numeric: tabular-nums;\n}\n\n.logger-table__value--power {\n  color: #58a6ff;\n  font-weight: 500;\n}\n\n.logger-table__value--energy {\n  color: #a371f7;\n}\n\n.logger-table__value--efficiency {\n  font-weight: 500;\n}\n\n.logger-table__value--good { color: #4ade80; }\n.logger-table__value--warning { color: #fbbf24; }\n.logger-table__value--bad { color: #f87171; }\n\n.logger-table__unit {\n  font-size: 9px;\n  color: #6b7280;\n  margin-left: 2px;\n}\n\n/* Timestamp */\n.logger-table__time {\n  font-size: 11px;\n  color: #8b949e;\n  font-variant-numeric: tabular-nums;\n}\n\n.logger-table__na {\n  color: #6b7280;\n  font-style: italic;\n}\n</style>\n\n<table class=\"logger-table\">\n  <thead class=\"logger-table__thead\">\n    <tr>\n      <th style=\"width: 80px;\">Status</th>\n      <th style=\"width: 140px;\">Logger</th>\n      <th style=\"width: 60px;\">Cabin</th>\n      <th>Active Power</th>\n      <th>Daily Energy</th>\n      <th>Cumulative Energy</th>\n      <th>Efficiency</th>\n      <th>Inverters</th>\n      <th style=\"width: 130px;\">Last Reading</th>\n    </tr>\n  </thead>\n  <tbody>\n    {{#each data}}\n    <tr class=\"logger-table__row\" onclick=\"window.location.href='/d/adsn27w/device-view?var-device_id={{this.device_id}}&var-power_plant_id={{this.power_plant_id}}'\">\n      <td>\n        <span class=\"logger-table__status {{statusClass this.timestamp}}\">\n          <span class=\"logger-table__dot\"></span>\n          {{statusLabel this.timestamp}}\n        </span>\n      </td>\n      <td>\n        <a href=\"/d/adsn27w/device-view?var-device_id={{this.device_id}}&var-power_plant_id={{this.power_plant_id}}\" class=\"logger-table__name\" onclick=\"event.stopPropagation()\">\n          {{this.logger_name}}\n        </a>\n      </td>\n      <td>{{this.cabin}}</td>\n      <td>{{#if this.timestamp}}<span class=\"logger-table__value logger-table__value--power\">{{this.active_power_kw}}<span class=\"logger-table__unit\">kW</span></span>{{else}}<span class=\"logger-table__na\">—</span>{{/if}}</td>\n      <td>{{#if this.timestamp}}<span class=\"logger-table__value logger-table__value--energy\">{{this.daily_energy_kwh}}<span class=\"logger-table__unit\">kWh</span></span>{{else}}<span class=\"logger-table__na\">—</span>{{/if}}</td>\n      <td>{{#if this.timestamp}}<span class=\"logger-table__value\">{{this.cumulative_energy_mwh}}<span class=\"logger-table__unit\">MWh</span></span>{{else}}<span class=\"logger-table__na\">—</span>{{/if}}</td>\n      <td>{{#if this.timestamp}}<span class=\"logger-table__value logger-table__value--efficiency {{efficiencyColor this.efficiency_pct}}\">{{this.efficiency_pct}}<span class=\"logger-table__unit\">%</span></span>{{else}}<span class=\"logger-table__na\">—</span>{{/if}}</td>\n      <td>{{#if this.timestamp}}<span class=\"logger-table__value\">{{this.inverters_producing}}</span>{{else}}<span class=\"logger-table__na\">—</span>{{/if}}</td>\n      <td>{{#if this.timestamp}}<span class=\"logger-table__time\">{{this.last_reading}}</span>{{else}}<span class=\"logger-table__na\">No data</span>{{/if}}</td>\n    </tr>\n    {{/each}}\n  </tbody>\n</table>",
+        "contentPartials": [],
+        "defaultContent": "No smart loggers found for this power plant.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// Status class based on timestamp presence\ncontext.handlebars.registerHelper('statusClass', function(timestamp) {\n  return timestamp ? 'logger-table__status--online' : 'logger-table__status--offline';\n});\n\n// Status label\ncontext.handlebars.registerHelper('statusLabel', function(timestamp) {\n  return timestamp ? 'Online' : 'Offline';\n});\n\n// Efficiency color\ncontext.handlebars.registerHelper('efficiencyColor', function(value) {\n  if (value >= 95) return 'logger-table__value--good';\n  if (value >= 80) return 'logger-table__value--warning';\n  return 'logger-table__value--bad';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    d.id as device_id,\n    pp.id as power_plant_id,\n    d.device_name as logger_name,\n    COALESCE(d.cabin, 0) as cabin,\n    ROUND(COALESCE(lr.active_power, 0)::numeric, 2) as active_power_kw,\n    ROUND(COALESCE(lr.daily_active_energy, 0)::numeric, 2) as daily_energy_kwh,\n    ROUND(COALESCE(lr.cumulative_active_energy, 0)::numeric / 1000, 2) as cumulative_energy_mwh,\n    ROUND(COALESCE(lr.efficiency, 0)::numeric, 1) as efficiency_pct,\n    COALESCE(lr.inverters_producing_count, 0) as inverters_producing,\n    lr.timestamp,\n    TO_CHAR(lr.timestamp, 'DD/MM/YY HH24:MI') as last_reading\nFROM public.tb_devices d\nJOIN public.tb_power_plants pp ON pp.id = d.power_plant_id\nLEFT JOIN dbt.int_logger_latest_readings lr ON lr.device_id = d.id\nWHERE d.device_type_id = 3\n  AND d.is_active = true\n  AND d.power_plant_id = $power_plant_id\nORDER BY \n  CASE WHEN lr.timestamp IS NULL THEN 1 ELSE 0 END,\n  d.device_name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "(312) São Bento V",
+          "value": "5"
+        },
+        "definition": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nWHERE is_active = true\nORDER BY name;\n",
+        "name": "power_plant_id",
+        "options": [],
+        "query": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nWHERE is_active = true\nORDER BY name;\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Smart_Logger_view",
+  "uid": "adxb5l2",
+  "version": 7
+}

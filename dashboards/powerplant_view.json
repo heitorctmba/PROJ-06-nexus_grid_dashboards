@@ -1,0 +1,564 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "tela de visao da usina",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<div style=\"display:flex; gap:20px; justify-content:center; align-items:center; flex-wrap:wrap;\">\n\n  <a\n    href=\"/d/adwn46n/ppo-tela-1-1?orgId=1&from=now/M&to=now&var-power_plant_id=All\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Alarms Overview\n  </a>\n\n  <a\n    href=\"/d/adwv46w/pp0-tela-1-2?orgId=1&from=now/M&to=now&var-power_plant_id=All\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Table Overview\n  </a>\n\n  <a\n    href=\"/d/ad4v9dd/powerplant_view?orgId=1&from=now/dh&to=now&timezone=browser&var-power_plant_id=${power_plant_id}\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Powerplant View\n  </a>\n\n  <a\n    href=\"/d/adhhz4x/SLUG_INVERTER_VIEW?orgId=1&from=now/dh&to=now&timezone=browser&var-power_plant_id=${power_plant_id}\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Inverter View\n  </a>\n\n  <a\n    href=\"/d/ad66btx/SLUG_RELAY_VIEW?orgId=1&from=now/dh&to=now&timezone=browser&var-power_plant_id=${power_plant_id}\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Relay View\n  </a>\n\n  <a\n    href=\"/d/adxb5l2/SLUG_SMART_LOGGER_VIEW?orgId=1&from=now/dh&to=now&timezone=browser&var-power_plant_id=${power_plant_id}\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Smart Logger View\n  </a>\n\n  <a\n    href=\"/d/adxnptf/SLUG_TRACKERS_VIEW?orgId=1&from=now/dh&to=now&timezone=browser&var-power_plant_id=${power_plant_id}\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Trackers View\n  </a>\n\n</div>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "12.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 19,
+        "x": 0,
+        "y": 2
+      },
+      "id": 21,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.plant-header {\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  padding: 16px;\n  color: #e6edf3;\n}\n.plant-header__top {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 16px;\n  padding-bottom: 12px;\n  border-bottom: 1px solid #30363d;\n}\n.plant-header__name {\n  font-size: 16px;\n  font-weight: 600;\n  color: #e6edf3;\n}\n.plant-header__location {\n  font-size: 10px;\n  color: #6e7681;\n  margin-left: 10px;\n}\n.plant-header__status-area {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.plant-header__badge {\n  font-size: 10px;\n  font-weight: 600;\n  padding: 4px 12px;\n  border-radius: 12px;\n}\n.plant-header__badge--generating { color: #3fb950; background: rgba(63, 185, 80, 0.15); }\n.plant-header__badge--critical { color: #f85149; background: rgba(248, 81, 73, 0.15); }\n.plant-header__badge--no_communication { color: #8b949e; background: rgba(139, 148, 158, 0.15); }\n.plant-header__badge--other { color: #d29922; background: rgba(210, 153, 34, 0.15); }\n.plant-header__update {\n  font-size: 9px;\n  color: #6e7681;\n}\n.plant-header__grid {\n  display: grid;\n  grid-template-columns: repeat(9, 1fr);\n  gap: 10px;\n}\n.plant-header__card {\n  background: #161b22;\n  border: 1px solid #30363d;\n  border-radius: 6px;\n  padding: 12px 8px;\n  text-align: center;\n  transition: all 0.2s ease;\n}\n.plant-header__card:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0,0,0,0.3);\n}\n.plant-header__card--highlight { border-color: #1f6feb; }\n.plant-header__card--weather { border-left-width: 3px; border-left-style: solid; }\n.plant-header__card--ghi { border-left-color: #f0883e; }\n.plant-header__card--poa { border-left-color: #db6d28; }\n.plant-header__card--air { border-left-color: #58a6ff; }\n.plant-header__card--module { border-left-color: #a371f7; }\n.plant-header__card--rain { border-left-color: #39d353; }\n.plant-header__label {\n  font-size: 9px;\n  font-weight: 500;\n  letter-spacing: 0.6px;\n  text-transform: uppercase;\n  color: #8b949e;\n  margin-bottom: 6px;\n}\n.plant-header__value {\n  font-size: 20px;\n  font-weight: 300;\n  line-height: 1.1;\n  font-variant-numeric: tabular-nums;\n}\n.plant-header__value--blue { color: #58a6ff; }\n.plant-header__value--white { color: #e6edf3; }\n.plant-header__value--green { color: #3fb950; }\n.plant-header__value--yellow { color: #d29922; }\n.plant-header__value--red { color: #f85149; }\n.plant-header__value--orange { color: #f0883e; }\n.plant-header__value--deep-orange { color: #db6d28; }\n.plant-header__value--purple { color: #a371f7; }\n.plant-header__value--gray { color: #8b949e; }\n.plant-header__unit {\n  font-size: 9px;\n  color: #6e7681;\n  margin-left: 2px;\n}\n</style>\n\n{{#each data}}\n<div class=\"plant-header\">\n  <div class=\"plant-header__top\">\n    <div>\n      <span class=\"plant-header__name\">{{this.power_plant_name}}</span>\n      <span class=\"plant-header__location\">{{this.location}}</span>\n    </div>\n    <div class=\"plant-header__status-area\">\n      <span class=\"plant-header__badge plant-header__badge--{{statusClass this.power_plant_status}}\">● {{statusLabel this.power_plant_status}}</span>\n      <span class=\"plant-header__update\">Last update: {{this.weather_last_update}}</span>\n    </div>\n  </div>\n\n  <div class=\"plant-header__grid\">\n    <div class=\"plant-header__card plant-header__card--highlight\">\n      <div class=\"plant-header__label\">Active Power</div>\n      <div class=\"plant-header__value plant-header__value--blue\">{{this.active_power_kw}}<span class=\"plant-header__unit\">kW</span></div>\n    </div>\n\n    <div class=\"plant-header__card\">\n      <div class=\"plant-header__label\">Rated Power</div>\n      <div class=\"plant-header__value plant-header__value--white\">{{this.rated_power_kw}}<span class=\"plant-header__unit\">kW</span></div>\n    </div>\n\n    <div class=\"plant-header__card\">\n      <div class=\"plant-header__label\">Inverters</div>\n      <div class=\"plant-header__value plant-header__value--{{pctColor this.inverter_availability_pct 90 50}}\">{{this.inverter_availability_pct}}<span class=\"plant-header__unit\">%</span></div>\n    </div>\n\n    <div class=\"plant-header__card\">\n      <div class=\"plant-header__label\">PR</div>\n      <div class=\"plant-header__value plant-header__value--{{pctColor this.pr_pct 75 50}}\">{{this.pr_pct}}<span class=\"plant-header__unit\">%</span></div>\n    </div>\n\n    <div class=\"plant-header__card plant-header__card--weather plant-header__card--ghi\">\n      <div class=\"plant-header__label\">GHI</div>\n      <div class=\"plant-header__value plant-header__value--orange\">{{this.irradiance_ghi}}<span class=\"plant-header__unit\">W/m²</span></div>\n    </div>\n\n    <div class=\"plant-header__card plant-header__card--weather plant-header__card--poa\">\n      <div class=\"plant-header__label\">POA</div>\n      <div class=\"plant-header__value plant-header__value--deep-orange\">{{this.irradiance_poa}}<span class=\"plant-header__unit\">W/m²</span></div>\n    </div>\n\n    <div class=\"plant-header__card plant-header__card--weather plant-header__card--air\">\n      <div class=\"plant-header__label\">Air Temp</div>\n      <div class=\"plant-header__value plant-header__value--blue\">{{this.air_temperature}}<span class=\"plant-header__unit\">°C</span></div>\n    </div>\n\n    <div class=\"plant-header__card plant-header__card--weather plant-header__card--module\">\n      <div class=\"plant-header__label\">Module Temp</div>\n      <div class=\"plant-header__value plant-header__value--purple\">{{this.module_temperature}}<span class=\"plant-header__unit\">°C</span></div>\n    </div>\n\n    <div class=\"plant-header__card plant-header__card--weather plant-header__card--rain\">\n      <div class=\"plant-header__label\">Rain</div>\n      <div class=\"plant-header__value plant-header__value--{{rainColor this.rain_signal}}\">{{rainLabel this.rain_signal}}</div>\n    </div>\n  </div>\n</div>\n{{/each}}",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// ============================================\n// PLANT HEADER - Helpers\n// ============================================\n\ncontext.handlebars.registerHelper('statusClass', (status) => {\n  if (!status) return 'other';\n  const s = status.toString().toLowerCase();\n  if (s === 'generating') return 'generating';\n  if (s === 'critical') return 'critical';\n  if (s === 'no_communication') return 'no_communication';\n  return 'other';\n});\n\ncontext.handlebars.registerHelper('statusLabel', (status) => {\n  if (!status) return 'UNKNOWN';\n  const s = status.toString().toLowerCase();\n  if (s === 'generating') return 'GENERATING';\n  if (s === 'critical') return 'CRITICAL';\n  if (s === 'no_communication') return 'NO COMM';\n  return status.toUpperCase();\n});\n\ncontext.handlebars.registerHelper('pctColor', (value, highThreshold, midThreshold) => {\n  if (value === null || value === undefined) return 'gray';\n  if (value >= highThreshold) return 'green';\n  if (value >= midThreshold) return 'yellow';\n  return 'red';\n});\n\ncontext.handlebars.registerHelper('rainColor', (signal) => {\n  if (signal === 0) return 'green';\n  if (signal === 1) return 'blue';\n  return 'gray';\n});\n\ncontext.handlebars.registerHelper('rainLabel', (signal) => {\n  if (signal === 0) return 'DRY';\n  if (signal === 1) return 'RAIN';\n  return '—';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": false
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT                                                                                      \r\n      -- Dados da Usina                                                                       \r\n      m.power_plant_id,                                                                       \r\n      m.power_plant_name,                                                                     \r\n      m.power_plant_status,                                                                   \r\n      m.location,                                                                             \r\n      ROUND(m.rated_power_kw, 0) AS rated_power_kw,                                           \r\n      ROUND(m.active_power_kw, 2) AS active_power_kw,                                         \r\n      ROUND(m.daily_energy_kwh, 2) AS daily_energy_kwh,                                       \r\n      ROUND(m.inverter_availability_pct, 1) AS inverter_availability_pct,                     \r\n      ROUND(m.rates_availability_pct, 1) AS relay_availability_pct,                           \r\n      ROUND(m.pr_pct * 100, 1) AS pr_pct,                                                           \r\n                                                                                              \r\n      -- Dados da Estação Meteorológica                                                       \r\n      ROUND(w.irradiance_ghi::numeric, 2) AS irradiance_ghi,                                  \r\n      ROUND(w.irradiance_poa::numeric, 2) AS irradiance_poa,                                  \r\n      ROUND(w.air_temperature::numeric, 1) AS air_temperature,                                \r\n      ROUND(w.module_temperature::numeric, 1) AS module_temperature,                          \r\n      w.rain_signal AS rain_signal,                                                           \r\n      TO_CHAR(w.timestamp, 'DD/MM HH24:MI') AS weather_last_update                            \r\n                                                                                              \r\n  FROM dbt.mart_power_plants_overview m                                                       \r\n  LEFT JOIN dbt.int_weather_station_latest_readings w                                         \r\n      ON m.power_plant_id = w.power_plant_id                                                  \r\n                                                                                              \r\n  WHERE m.power_plant_id::TEXT = '${power_plant_id}'",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 5,
+        "x": 19,
+        "y": 2
+      },
+      "id": 20,
+      "options": {
+        "afterRender": "// Drill-down para strings\ncontext.element.querySelectorAll('.inverter-box').forEach(function(box) {\n  if (box.dataset.listenerAdded) return;\n  box.dataset.listenerAdded = 'true';\n  \n  box.addEventListener('click', function(e) {\n    e.preventDefault();\n    var deviceId = box.dataset.deviceId;\n    var deviceName = box.dataset.deviceName;\n    var cabin = box.dataset.cabin;\n    var card = box.closest('.cabine-card');\n    \n    // Esconde view de inversores\n    card.querySelector('.inverters-view').style.display = 'none';\n    \n    // Mostra view de strings\n    var stringsView = card.querySelector('.strings-view');\n    stringsView.style.display = 'flex';\n    \n    // Filtra strings do inversor clicado\n    stringsView.querySelectorAll('.string-box').forEach(function(s) {\n      s.style.display = s.dataset.deviceId === deviceId ? 'block' : 'none';\n    });\n    \n    // Atualiza título\n    card.querySelector('.title-text').textContent = deviceName;\n    \n    // Mostra botão voltar\n    card.querySelector('.back-btn').style.display = 'inline';\n  });\n});\n\n// Botão voltar\ncontext.element.querySelectorAll('.back-btn').forEach(function(btn) {\n  if (btn.dataset.listenerAdded) return;\n  btn.dataset.listenerAdded = 'true';\n  \n  btn.addEventListener('click', function(e) {\n    e.preventDefault();\n    var cabin = btn.dataset.cabin;\n    var card = btn.closest('.cabine-card');\n    \n    // Mostra view de inversores\n    card.querySelector('.inverters-view').style.display = 'flex';\n    \n    // Esconde view de strings\n    card.querySelector('.strings-view').style.display = 'none';\n    \n    // Restaura título\n    card.querySelector('.title-text').textContent = 'Cabin ' + cabin;\n    \n    // Esconde botão voltar\n    btn.style.display = 'none';\n  });\n});",
+        "content": "<style>\n  .organograma {\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n    padding: 12px;\n  }\n\n  .cabine-card {\n    background: #1e1e1e;\n    border: 1px solid #333;\n    border-radius: 8px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n  }\n\n  .cabine-header {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: 10px 14px;\n    background: #2a2a2a;\n    border-radius: 8px 8px 0 0;\n  }\n\n  .cabine-title {\n    font-weight: bold;\n    font-size: 13px;\n    color: #fff;\n    display: flex;\n    align-items: center;\n    gap: 6px;\n  }\n\n  .cabine-power {\n    font-size: 11px;\n    color: #888;\n  }\n\n  .cabine-body {\n    display: flex;\n    gap: 8px;\n    padding: 10px;\n  }\n\n  .inverters-view {\n    display: flex;\n    gap: 8px;\n    width: 100%;\n  }\n\n  .strings-view {\n    display: none;\n    width: 100%;\n  }\n\n  .inversores-container {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 5px;\n    flex: 1;\n    align-content: start;\n  }\n\n  .strings-container {\n    display: grid;\n    grid-template-columns: repeat(4, 1fr);\n    gap: 5px;\n    flex: 1;\n    align-content: start;\n  }\n\n  .devices-sidebar {\n    display: flex;\n    flex-direction: column;\n    gap: 5px;\n    min-width: 70px;\n    border-left: 1px solid #333;\n    padding-left: 8px;\n  }\n\n  .device-box {\n    background: #22c55e22;\n    border: 1px solid #22c55e44;\n    border-radius: 4px;\n    padding: 5px;\n    text-align: center;\n    transition: transform 0.2s, box-shadow 0.2s;\n    cursor: pointer;\n  }\n\n  .device-box:hover {\n    transform: scale(1.05);\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n  }\n\n  .device-name {\n    font-size: 9px;\n    color: #888;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n  }\n\n  .device-value {\n    font-size: 10px;\n    font-weight: bold;\n    color: #fff;\n  }\n\n  .device-fault {\n    background: #ef444422;\n    border-color: #ef444444;\n  }\n\n  .device-fault .device-value {\n    color: #ef4444;\n  }\n\n  .device-neutral {\n    background: #3b82f622;\n    border-color: #3b82f644;\n  }\n\n  .device-neutral .device-value {\n    color: #60a5fa;\n  }\n\n  .sidebar-device {\n    padding: 6px 4px;\n    cursor: default;\n  }\n\n  .sidebar-device:hover {\n    transform: none;\n    box-shadow: none;\n  }\n\n  .sidebar-device .device-icon {\n    font-size: 12px;\n    margin-bottom: 2px;\n  }\n\n  .sidebar-device .device-name {\n    font-size: 8px;\n  }\n\n  .sidebar-device .device-value {\n    font-size: 9px;\n  }\n\n  .back-btn {\n    display: none;\n    background: none;\n    border: none;\n    color: #60a5fa;\n    cursor: pointer;\n    font-size: 14px;\n    padding: 0;\n  }\n\n  .back-btn:hover {\n    color: #93c5fd;\n  }\n\n  .string-box {\n    background: #22c55e22;\n    border: 1px solid #22c55e44;\n    border-radius: 4px;\n    padding: 6px 4px;\n    text-align: center;\n  }\n\n  .string-box.string-fault {\n    background: #ef444422;\n    border-color: #ef444444;\n  }\n\n  .string-number {\n    font-size: 8px;\n    color: #888;\n  }\n\n  .string-value {\n    font-size: 10px;\n    font-weight: bold;\n    color: #4ade80;\n  }\n\n  .string-fault .string-value {\n    color: #ef4444;\n  }\n</style>\n\n<div class=\"organograma\">\n  {{#each (groupByCabin data)}}\n  <div class=\"cabine-card\" data-cabin=\"{{key}}\">\n    <div class=\"cabine-header\">\n      <span class=\"cabine-title\">\n        <button class=\"back-btn\" data-cabin=\"{{key}}\">←</button>\n        <span class=\"title-text\">Cabin {{key}}</span>\n      </span>\n      <span class=\"cabine-power\">{{totalPower items}} kW</span>\n    </div>\n    <div class=\"cabine-body\">\n      <div class=\"inverters-view\">\n        <div class=\"inversores-container\">\n          {{#each (filterByType items \"inverter\")}}\n          <div class=\"device-box inverter-box {{#if (isInverterOk state_simplified)}}{{else}}device-fault{{/if}}\" data-device-id=\"{{device_id}}\" data-device-name=\"{{device_name}}\" data-cabin=\"{{cabin}}\">\n            <div class=\"device-name\">{{device_name}}</div>\n            <div class=\"device-value\">{{active_power}} kW</div>\n          </div>\n          {{/each}}\n        </div>\n        {{#if (hasSidebarDevices items)}}\n        <div class=\"devices-sidebar\">\n          {{#each (filterByType items \"relay\")}}\n          <div class=\"device-box sidebar-device {{#if (isRelayOk state_simplified)}}{{else}}device-fault{{/if}}\">\n            <div class=\"device-icon\">🔌</div>\n            <div class=\"device-name\">Relay</div>\n            <div class=\"device-value\">{{active_power}} kW</div>\n          </div>\n          {{/each}}\n          {{#each (filterByType items \"logger\")}}\n          <div class=\"device-box sidebar-device device-neutral\">\n            <div class=\"device-icon\">📡</div>\n            <div class=\"device-name\">Logger</div>\n            <div class=\"device-value\">{{active_power}} kW</div>\n          </div>\n          {{/each}}\n        </div>\n        {{/if}}\n      </div>\n      <div class=\"strings-view\">\n        <div class=\"strings-container\">\n          {{#each (filterByType items \"string\")}}\n          <div class=\"string-box {{#if (isStringOk string_current)}}{{else}}string-fault{{/if}}\" data-device-id=\"{{device_id}}\">\n            <div class=\"string-number\">S{{string_number}}</div>\n            <div class=\"string-value\">{{string_current}} A</div>\n          </div>\n          {{/each}}\n        </div>\n      </div>\n    </div>\n  </div>\n  {{/each}}\n</div>",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// Group by cabin\ncontext.handlebars.registerHelper('groupByCabin', function(array) {\n  const grouped = {};\n  array.forEach(item => {\n    const key = item.cabin;\n    if (!grouped[key]) grouped[key] = [];\n    grouped[key].push(item);\n  });\n  return Object.entries(grouped).map(([k, v]) => ({ key: k, items: v }));\n});\n\n// Filter by device type\ncontext.handlebars.registerHelper('filterByType', function(items, type) {\n  return items.filter(item => item.device_type === type);\n});\n\n// Check if inverter is OK (state_simplified === 2)\ncontext.handlebars.registerHelper('isInverterOk', function(state) {\n  return state === 2;\n});\n\n// Check if relay is OK (breaker_position >= 1)\ncontext.handlebars.registerHelper('isRelayOk', function(state) {\n  return state >= 1;\n});\n\n// Check if string is OK (current >= 1)\ncontext.handlebars.registerHelper('isStringOk', function(current) {\n  return current >= 1;\n});\n\n// Get total power from inverters\ncontext.handlebars.registerHelper('totalPower', function(items) {\n  const inverter = items.find(i => i.device_type === 'inverter' && i.total_power);\n  return inverter ? inverter.total_power : 0;\n});\n\n// Check if has relay or logger\ncontext.handlebars.registerHelper('hasSidebarDevices', function(items) {\n  return items.some(i => i.device_type === 'relay' || i.device_type === 'logger');\n});\n\ncontext.handlebars.registerHelper('eq', (a, b) => a == b);\ncontext.handlebars.registerHelper('neq', (a, b) => a != b);",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH inverter_data AS (\n    SELECT\n        d.cabin,\n        d.power_plant_id,\n        d.id as device_id,\n        d.device_name,\n        'inverter' as device_type,\n        COALESCE(\n            (SELECT ROUND(value_numeric::numeric, 2)\n             FROM dbt.int_inverter_latest_readings r\n             WHERE r.device_id = d.id AND r.field_name = 'Active Power'\n             LIMIT 1),\n            0\n        ) AS active_power,\n        COALESCE(\n            (SELECT value_numeric::integer\n             FROM dbt.int_inverter_latest_readings r\n             WHERE r.device_id = d.id AND r.field_name = 'State: Simplified'\n             LIMIT 1),\n            0\n        ) AS state_simplified,\n        (SELECT ROUND(SUM(r2.value_numeric)::numeric, 2)\n         FROM public.tb_devices d2\n         INNER JOIN dbt.int_inverter_latest_readings r2 ON r2.device_id = d2.id\n         INNER JOIN public.tb_devices_type dt2 ON d2.device_type_id = dt2.id\n         WHERE dt2.name = 'inverter'\n           AND d2.is_active = true\n           AND d2.power_plant_id = d.power_plant_id\n           AND d2.cabin = d.cabin\n           AND r2.field_name = 'Active Power'\n        ) AS total_power,\n        NULL::integer AS string_number,\n        NULL::numeric AS string_current\n    FROM public.tb_devices d\n    INNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\n    WHERE dt.name = 'inverter'\n      AND d.is_active = true\n      AND d.power_plant_id IN (${power_plant_id})\n      AND d.cabin IS NOT NULL\n),\nrelay_data AS (\n    SELECT\n        d.cabin,\n        d.power_plant_id,\n        d.id as device_id,\n        d.device_name,\n        'relay' as device_type,\n        COALESCE(ROUND(lr.active_power::numeric, 2), 0) AS active_power,\n        COALESCE(\n            (SELECT (discrete_data_json->>'breaker_position')::integer\n             FROM dbt.stg_relay_discrete_data rd\n             WHERE rd.device_id = d.id\n             ORDER BY rd.timestamp DESC\n             LIMIT 1),\n            0\n        ) AS state_simplified,\n        NULL::numeric AS total_power,\n        NULL::integer AS string_number,\n        NULL::numeric AS string_current\n    FROM public.tb_devices d\n    INNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\n    LEFT JOIN dbt.int_relay_latest_readings lr ON lr.device_id = d.id\n    WHERE dt.name = 'relay'\n      AND d.is_active = true\n      AND d.power_plant_id IN (${power_plant_id})\n      AND d.cabin IS NOT NULL\n),\nlogger_data AS (\n    SELECT\n        d.cabin,\n        d.power_plant_id,\n        d.id as device_id,\n        d.device_name,\n        'logger' as device_type,\n        COALESCE(ROUND(lr.active_power::numeric, 2), 0) AS active_power,\n        CASE WHEN COALESCE(lr.logger_state, 0) >= 1 THEN 2 ELSE 0 END AS state_simplified,\n        NULL::numeric AS total_power,\n        NULL::integer AS string_number,\n        NULL::numeric AS string_current\n    FROM public.tb_devices d\n    INNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\n    LEFT JOIN dbt.int_logger_latest_readings lr ON lr.device_id = d.id\n    WHERE dt.name = 'logger'\n      AND d.is_active = true\n      AND d.power_plant_id IN (${power_plant_id})\n      AND d.cabin IS NOT NULL\n),\nstring_data AS (\n    SELECT\n        d.cabin,\n        s.power_plant_id,\n        s.device_id,\n        s.device_name,\n        'string' as device_type,\n        NULL::numeric AS active_power,\n        CASE WHEN s.string_current >= 1 THEN 2 ELSE 0 END AS state_simplified,\n        NULL::numeric AS total_power,\n        s.string_number,\n        ROUND(s.string_current::numeric, 2) AS string_current\n    FROM dbt.stg_inverter_string_data s\n    INNER JOIN public.tb_devices d ON d.id = s.device_id\n    WHERE s.power_plant_id IN (${power_plant_id})\n)\nSELECT * FROM inverter_data\nUNION ALL\nSELECT * FROM relay_data\nUNION ALL\nSELECT * FROM logger_data\nUNION ALL\nSELECT * FROM string_data\nORDER BY cabin, device_type, device_id, string_number",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 5,
+        "x": 0,
+        "y": 7
+      },
+      "id": 22,
+      "options": {
+        "afterRender": "const API_KEY = '35430ed0e569a39bcd737092723631bc';\r\n\r\nsetTimeout(() => {\r\n  const mapEl = document.getElementById('leaflet');\r\n  \r\n  if (!mapEl) {\r\n    console.error('Leaflet element not found');\r\n    return;\r\n  }\r\n  \r\n  // Parse plant data\r\n  let plants = [];\r\n  try {\r\n    const plantsData = mapEl.getAttribute('data-plants');\r\n    plants = JSON.parse(plantsData);\r\n    if (!Array.isArray(plants)) plants = [];\r\n  } catch (e) {\r\n    console.error('Error parsing plant data:', e);\r\n    mapEl.innerHTML = '<div style=\"display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;\">⚠️ Error loading data</div>';\r\n    return;\r\n  }\r\n  \r\n  // Filter plants with valid coordinates\r\n  plants = plants.filter(p => {\r\n    const lat = parseFloat(p.latitude);\r\n    const lon = parseFloat(p.longitude);\r\n    return !isNaN(lat) && !isNaN(lon);\r\n  });\r\n  \r\n  if (plants.length === 0) {\r\n    mapEl.innerHTML = '<div style=\"display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;\">⚠️ No plants with available coordinates</div>';\r\n    return;\r\n  }\r\n  \r\n  console.log('Plants loaded:', plants);\r\n  \r\n  // Function to get visual configuration based on status\r\n  function getStatusConfig(status) {\r\n    const configs = {\r\n      'critical': { color: '#DC2626', icon: '⚠️', label: 'Critical' },\r\n      'acknowledged': { color: '#F97316', icon: '✓', label: 'Acknowledged' },\r\n      'generating': { color: '#10B981', icon: '☀️', label: 'Generating' },\r\n      'no_communication': { color: '#6B7280', icon: '✕', label: 'No Communication' },\r\n      'unknown': { color: '#9CA3AF', icon: '?', label: 'Unknown' }\r\n    };\r\n    return configs[status] || configs['unknown'];\r\n  }\r\n  \r\n  import(\"https://esm.sh/leaflet@1.9.4\").then(({ default: L }) => {\r\n    \r\n    // Remover mapa anterior se existir (SEM salvar estado)\r\n    if (window.leafletMap) {\r\n      window.leafletMap.remove();\r\n    }\r\n    \r\n    // Calculate center and bounds for all plants\r\n    const bounds = L.latLngBounds(plants.map(p => [parseFloat(p.latitude), parseFloat(p.longitude)]));\r\n    \r\n    const map = L.map('leaflet', {\r\n      zoomControl: true\r\n    });\r\n    \r\n    window.leafletMap = map;\r\n    \r\n    // Satellite\r\n    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {\r\n      attribution: 'Esri',\r\n      maxZoom: 18\r\n    }).addTo(map);\r\n    \r\n    // Clouds\r\n    let clouds = L.tileLayer('https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=' + API_KEY, {\r\n      opacity: 0.85,\r\n      maxZoom: 18\r\n    }).addTo(map);\r\n    \r\n    let cloudsVisible = true;\r\n    \r\n    // Cloud button control\r\n    const toggleBtn = document.getElementById('cloudToggle');\r\n    if (toggleBtn) {\r\n      toggleBtn.addEventListener('click', () => {\r\n        if (cloudsVisible) {\r\n          map.removeLayer(clouds);\r\n          toggleBtn.classList.remove('active');\r\n          toggleBtn.textContent = '☁️ Clouds (OFF)';\r\n        } else {\r\n          clouds.addTo(map);\r\n          toggleBtn.classList.add('active');\r\n          toggleBtn.textContent = '☁️ Clouds';\r\n        }\r\n        cloudsVisible = !cloudsVisible;\r\n      });\r\n    }\r\n    \r\n    // Adicionar marcador para cada usina\r\n    plants.forEach((plant, index) => {\r\n      const lat = parseFloat(plant.latitude);\r\n      const lon = parseFloat(plant.longitude);\r\n      const name = plant.power_plant_name;\r\n      const location = plant.location;\r\n      const capacity = plant.capacity;\r\n      const status = plant.status || 'unknown';\r\n      const activePower = parseFloat(plant.active_power_kw) || 0;\r\n      const highAlarmsCount = parseInt(plant.high_alarms_count) || 0;\r\n      \r\n      // Obter configuração de cor e ícone baseado no status\r\n      const statusConfig = getStatusConfig(status);\r\n      \r\n      const icon = L.divIcon({\r\n        className: '',\r\n        html: '<div style=\"background:' + statusConfig.color + ';width:36px;height:36px;border-radius:50%;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;font-size:20px;\">' + statusConfig.icon + '</div>',\r\n        iconSize: [36, 36],\r\n        iconAnchor: [18, 18]\r\n      });\r\n      \r\n      // Criar conteúdo do popup\r\n      let popupContent = '<div style=\"min-width:200px;\">' +\r\n        '<b style=\"font-size:14px;\">' + name + '</b><br>' +\r\n        '<span style=\"color:#666;font-size:12px;\">' + location + '</span><br>' +\r\n        '<span style=\"font-size:12px;\"><b>Capacity:</b> ' + capacity + ' kWp</span><br>' +\r\n        '<span style=\"font-size:12px;\"><b>Active Power:</b> ' + activePower.toFixed(2) + ' kW</span><br>';\r\n      \r\n      // Adicionar alarmes HIGH se houver\r\n      if (highAlarmsCount > 0) {\r\n        popupContent += '<span style=\"font-size:12px;color:#DC2626;\"><b>⚠️ HIGH Alarms:</b> ' + highAlarmsCount + '</span><br>';\r\n      }\r\n      \r\n      popupContent += '<span style=\"display:inline-block;margin-top:4px;padding:2px 8px;background:' + statusConfig.color + ';color:white;border-radius:4px;font-size:11px;font-weight:bold;\">' + statusConfig.label + '</span>' +\r\n        '</div>';\r\n      \r\n      const marker = L.marker([lat, lon], {icon: icon})\r\n        .addTo(map)\r\n        .bindPopup(popupContent);\r\n      \r\n      // Abrir popup no hover\r\n      marker.on('mouseover', function() {\r\n        this.openPopup();\r\n      });\r\n      \r\n      // Fechar popup quando sair do hover\r\n      marker.on('mouseout', function() {\r\n        this.closePopup();\r\n      });\r\n      \r\n      // Redirecionar ao clicar\r\n      marker.on('click', function() {\r\n        const url = 'https://nexus-gridco.com.br/d/ad4v9dd/powerplant-view?orgId=1&from=now%2Fd&to=now&timezone=browser&var-power_plant_id=' + plant.id + '&refresh=30s';\r\n        window.location.href = url;\r\n      });\r\n      \r\n      // Se for apenas uma usina, abrir o popup\r\n      if (plants.length === 1) {\r\n        marker.openPopup();\r\n      }\r\n    });\r\n    \r\n    // SEMPRE recentralizar (a cada refresh)\r\n    if (plants.length === 1) {\r\n      map.setView([parseFloat(plants[0].latitude), parseFloat(plants[0].longitude)], 16);\r\n    } else {\r\n      map.fitBounds(bounds, { padding: [50, 50] });\r\n    }\r\n    \r\n    setTimeout(() => map.invalidateSize(), 200);\r\n    \r\n    function updateTime() {\r\n      const el = document.getElementById('time');\r\n      if (el) {\r\n        el.textContent = 'Update: ' + new Date().toLocaleString('pt-BR', {\r\n          day:'2-digit',\r\n          month:'2-digit',\r\n          hour:'2-digit',\r\n          minute:'2-digit'\r\n        });\r\n      }\r\n    }\r\n    updateTime();\r\n    \r\n    // Atualizar nuvens a cada 30 min\r\n    setInterval(() => {\r\n      if (cloudsVisible) {\r\n        try {\r\n          map.removeLayer(clouds);\r\n          clouds = L.tileLayer('https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=' + API_KEY + '&_=' + Date.now(), {\r\n            opacity: 0.85,\r\n            maxZoom: 18\r\n          }).addTo(map);\r\n          updateTime();\r\n        } catch(e) {\r\n          console.error('Error updating clouds:', e);\r\n        }\r\n      }\r\n    }, 1800000);\r\n    \r\n  }).catch(error => {\r\n    console.error('Error loading Leaflet:', error);\r\n    mapEl.innerHTML = '<div style=\"padding:20px;color:red;text-align:center;\">Error loading map: ' + error.message + '</div>';\r\n  });\r\n  \r\n}, 100);",
+        "content": "<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\" />\n\n<style>\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  \n  .container { \n    display: flex; \n    flex-direction: column; \n    height: 100%; \n    width: 100%; \n    position: absolute;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n  }\n  \n  .map-container { \n    flex: 1; \n    position: relative; \n    width: 100%;\n    overflow: hidden;\n    background: #1a1a1a;\n  }\n  \n  #leaflet { \n    position: absolute; \n    top: 0; \n    left: 0; \n    width: 100%; \n    height: 100%;\n  }\n  \n  .cloud-toggle {\n    position: absolute;\n    top: 10px;\n    right: 10px;\n    z-index: 1000;\n    background: white;\n    border: 2px solid rgba(0,0,0,0.2);\n    border-radius: 4px;\n    padding: 8px 12px;\n    cursor: pointer;\n    font-size: 12px;\n    font-weight: bold;\n    box-shadow: 0 2px 4px rgba(0,0,0,0.3);\n    transition: all 0.2s;\n  }\n  \n  .cloud-toggle:hover {\n    background: #f0f0f0;\n    transform: scale(1.05);\n  }\n  \n  .cloud-toggle.active {\n    background: #4CAF50;\n    color: white;\n    border-color: #45a049;\n  }\n  \n  .update { \n    padding: 8px; \n    text-align: center; \n    font-size: 11px; \n    color: #9ca3af; \n    background: #1a1a1a; \n    flex-shrink: 0;\n    border-top: 1px solid #2d2d2d;\n  }\n  \n  .leaflet-container { \n    font-family: Arial, sans-serif; \n  }\n</style>\n\n<div class=\"container\">\n  <div class=\"map-container\">\n    <button id=\"cloudToggle\" class=\"cloud-toggle active\">☁️ Clouds</button>\n    <div id=\"leaflet\" data-plants='{{json data}}'></div>\n  </div>\n  \n  <div class=\"update\">\n    <strong>Climate Monitoring</strong> | <span id=\"time\">Loading...</span>\n  </div>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "none",
+          "language": "html"
+        },
+        "editors": [
+          "afterRender"
+        ],
+        "externalStyles": [],
+        "helpers": "",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": false
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarms AS (\r\n  SELECT DISTINCT ON (device_id, code)\r\n    power_plant_id,\r\n    severity,\r\n    type\r\n  FROM dbt.int_events_alarms\r\n  ORDER BY device_id, code, timestamp DESC\r\n),\r\nalarm_counts AS (\r\n  SELECT \r\n    power_plant_id,\r\n    COUNT(*) as high_alarms_count\r\n  FROM latest_alarms\r\n  WHERE type = 'alarm'\r\n    AND LOWER(severity) = 'high'\r\n  GROUP BY power_plant_id\r\n)\r\nSELECT \r\n  pp.id,\r\n  pp.name as power_plant_name,\r\n  pp.location,\r\n  pp.location_lat as latitude,\r\n  pp.location_long as longitude,\r\n  pp.capacity,\r\n  CASE \r\n    WHEN m.power_plant_status = 'offline' THEN 'critical'\r\n    ELSE COALESCE(m.power_plant_status, 'unknown')\r\n  END as status,\r\n  COALESCE(m.active_power_kw, 0) as active_power_kw,\r\n  COALESCE(ac.high_alarms_count, 0) as high_alarms_count\r\nFROM public.tb_power_plants pp\r\nLEFT JOIN dbt.mart_power_plants_overview m ON m.power_plant_id = pp.id\r\nLEFT JOIN alarm_counts ac ON ac.power_plant_id = pp.id\r\nWHERE pp.is_active = true\r\n  AND ('${power_plant_id}' = 'All' OR pp.id::TEXT = '${power_plant_id}')\r\nORDER BY pp.name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.5,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 5,
+        "y": 7
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "  SELECT                                                                                                                                                                                                                                       \r\n    timestamp AT TIME ZONE 'America/Sao_Paulo' as timestamp,                                                                                                                                                                                   \r\n    SUM(max_power) as active_power_kw                                                                                                                                                                                                          \r\n  FROM (                                                                                                                                                                                                                                       \r\n    SELECT                                                                                                                                                                                                                                     \r\n      timestamp,                                                                                                                                                                                                                               \r\n      device_id,                                                                                                                                                                                                                               \r\n      MAX(active_power) as max_power                                                                                                                                                                                                           \r\n    FROM dbt.stg_inverter_analogic_data                                                                                                                                                                                                        \r\n    WHERE $__timeFilter(timestamp)                                                                                                                                                                                                             \r\n      AND power_plant_id = ${power_plant_id}                                                                                                                                                                                                   \r\n    GROUP BY timestamp, device_id                                                                                                                                                                                                              \r\n  ) deduped                                                                                                                                                                                                                                    \r\n  GROUP BY timestamp                                                                                                                                                                                                                           \r\n  ORDER BY timestamp  ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "powerplants",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "ff786imwl6k1sf"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "  SELECT                                                                                                                                                                                                                                       \r\n    timestamp AT TIME ZONE 'America/Sao_Paulo' as timestamp,                                                                                                                                                                                   \r\n    AVG(irradiance_poa) as irradiance_poa                                                                                                                                                                                                      \r\n  FROM (                                                                                                                                                                                                                                       \r\n    SELECT                                                                                                                                                                                                                                     \r\n      timestamp,                                                                                                                                                                                                                               \r\n      device_id,                                                                                                                                                                                                                               \r\n      MAX(irradiance_poa) as irradiance_poa                                                                                                                                                                                                    \r\n    FROM dbt.stg_weather_station_analogic_data                                                                                                                                                                                                 \r\n    WHERE $__timeFilter(timestamp)                                                                                                                                                                                                             \r\n      AND power_plant_id = ${power_plant_id}                                                                                                                                                                                                   \r\n      AND irradiance_poa IS NOT NULL                                                                                                                                                                                                           \r\n    GROUP BY timestamp, device_id                                                                                                                                                                                                              \r\n  ) deduped                                                                                                                                                                                                                                    \r\n  GROUP BY timestamp                                                                                                                                                                                                                           \r\n  ORDER BY timestamp   ",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Active Power x Time",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 11,
+        "y": 7
+      },
+      "id": 23,
+      "options": {
+        "afterRender": "var apiEndpoint = context.grafana.replaceVariables('${api_endpoint}');\n\n// Atualizar contador de alarmes pendentes\nvar pendingRows = context.element.querySelectorAll('#alarm-table .alarms__row:not(.alarms__row--ack)');\nvar countEl = context.element.querySelector('#pending-count');\nvar btnEl = context.element.querySelector('#acknowledge-all-btn');\n\nif (countEl && pendingRows.length > 0) {\n  countEl.textContent = '(' + pendingRows.length + ' pending)';\n}\n\nif (btnEl) {\n  if (btnEl.dataset.listenerAdded) return;\n  btnEl.dataset.listenerAdded = 'true';\n\n  if (pendingRows.length === 0) {\n    btnEl.disabled = true;\n    btnEl.textContent = 'No Pending Alarms';\n  }\n\n  btnEl.addEventListener('click', function () {\n    var pendingIds = [];\n    var rows = context.element.querySelectorAll('#alarm-table .alarms__row:not(.alarms__row--ack)');\n    rows.forEach(function (row) {\n      var alarmId = row.getAttribute('data-id');\n      if (alarmId) {\n        pendingIds.push(alarmId);\n      }\n    });\n\n    if (pendingIds.length === 0) {\n      alert('No pending alarms to acknowledge.');\n      return;\n    }\n\n    if (!confirm('Are you sure you want to acknowledge all ' + pendingIds.length + ' pending alarms?')) {\n      return;\n    }\n\n    var userName = window.grafanaBootData && window.grafanaBootData.user ? window.grafanaBootData.user.name : 'Unknown';\n\n    var url = apiEndpoint + '/events-alarms/acknowledge/multiple';\n    var payload = {\n      acknowledged_by: userName,\n      ids: pendingIds\n    };\n\n    btnEl.disabled = true;\n    btnEl.textContent = 'Processing...';\n\n    fetch(url, {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify(payload)\n    })\n      .then(function (response) {\n        if (response.ok) {\n          alert('All alarms acknowledged successfully!');\n          location.reload();\n        } else {\n          alert('Failed to acknowledge alarms. Status: ' + response.status);\n          btnEl.disabled = false;\n          btnEl.textContent = 'Acknowledge All';\n        }\n      })\n      .catch(function (error) {\n        alert('Error: ' + error.message);\n        btnEl.disabled = false;\n        btnEl.textContent = 'Acknowledge All';\n      });\n  });\n}\n\n// Event listeners para botões individuais\ncontext.element.querySelectorAll('.acknowledge-btn').forEach(function (btn) {\n  if (btn.dataset.listenerAdded) return;\n  btn.dataset.listenerAdded = 'true';\n\n  btn.addEventListener('click', function (event) {\n    event.stopPropagation();\n    var row = btn.closest('tr');\n    var alarmId = row.getAttribute('data-id');\n\n    if (!confirm('Are you sure you want to acknowledge this alarm?')) {\n      return;\n    }\n\n    var userName = window.grafanaBootData && window.grafanaBootData.user ? window.grafanaBootData.user.name : 'Unknown';\n    var url = apiEndpoint + '/events-alarms/' + alarmId + '/acknowledge';\n    var payload = { acknowledged_by: userName };\n\n    fetch(url, {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify(payload)\n    })\n      .then(function (response) {\n        if (response.ok) {\n          alert('Alarm acknowledged successfully!');\n          location.reload();\n        } else {\n          alert('Failed to acknowledge alarm. Status: ' + response.status);\n        }\n      })\n      .catch(function (error) {\n        alert('Error: ' + error.message);\n      });\n  });\n});",
+        "content": "<style>\n.alarms {\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  color: #e6edf3;\n  padding: 8px;\n}\n.alarms__header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.alarms__title {\n  font-size: 13px;\n  font-weight: 600;\n  color: #e6edf3;\n}\n.alarms__pending {\n  font-size: 11px;\n  color: #f85149;\n  margin-left: 8px;\n}\n.alarms__ack-all {\n  padding: 6px 14px;\n  background: #238636;\n  color: #fff;\n  border: 1px solid #2ea043;\n  border-radius: 6px;\n  cursor: pointer;\n  font-size: 11px;\n  font-weight: 500;\n  transition: all 0.15s ease;\n}\n.alarms__ack-all:hover { background: #2ea043; }\n.alarms__ack-all:disabled { background: #21262d; border-color: #30363d; color: #8b949e; cursor: not-allowed; }\n.alarms__table {\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0;\n  border-radius: 8px;\n  overflow: hidden;\n  font-size: 12px;\n}\n.alarms__thead {\n  background: #21262d;\n}\n.alarms__thead th {\n  padding: 10px 8px;\n  text-align: left;\n  font-weight: 600;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n  text-transform: uppercase;\n  color: #8b949e;\n  border-bottom: 1px solid #30363d;\n}\n.alarms__row {\n  transition: background-color 0.15s ease;\n  cursor: pointer;\n}\n.alarms__row:nth-child(odd) { background: #161b22; }\n.alarms__row:nth-child(even) { background: #1c2128; }\n.alarms__row:hover { background: #262c36 !important; }\n.alarms__row td {\n  padding: 8px;\n  border-bottom: 1px solid #21262d;\n  vertical-align: middle;\n}\n.alarms__row--high td { color: #f85149; font-weight: 600; }\n.alarms__row--medium td { color: #d29922; font-weight: 600; }\n.alarms__row--low td { color: #8b949e; }\n.alarms__row--ack td { color: #f0883e !important; }\n.alarms__time {\n  display: flex;\n  flex-direction: column;\n  gap: 1px;\n}\n.alarms__time-main { font-variant-numeric: tabular-nums; font-size: 11px; }\n.alarms__time-ago { font-size: 9px; opacity: 0.7; }\n.alarms__badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  padding: 2px 6px;\n  border-radius: 10px;\n  font-size: 9px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.alarms__badge--high { background: rgba(248, 81, 73, 0.15); color: #f85149; }\n.alarms__badge--medium { background: rgba(210, 153, 34, 0.15); color: #d29922; }\n.alarms__badge--new::before {\n  content: '';\n  width: 5px;\n  height: 5px;\n  background: currentColor;\n  border-radius: 50%;\n  animation: pulse-badge 1.5s infinite;\n}\n@keyframes pulse-badge {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.3; }\n}\n.alarms__ack-btn {\n  padding: 4px 10px;\n  background: #21262d;\n  color: #c9d1d9;\n  border: 1px solid #30363d;\n  border-radius: 4px;\n  cursor: pointer;\n  font-size: 10px;\n  font-weight: 500;\n  transition: all 0.15s ease;\n}\n.alarms__ack-btn:hover { background: #30363d; }\n.alarms__ack-info {\n  font-size: 9px;\n  line-height: 1.3;\n  text-align: center;\n}\n.alarms__ack-info strong { color: #f0883e; display: block; }\n.alarms__ack-info span { color: #8b949e; }\n</style>\n\n<div class=\"alarms\">\n  <div class=\"alarms__header\">\n    <div>\n      <span class=\"alarms__title\">Active Alarms</span>\n      <span class=\"alarms__pending\" id=\"pending-count\"></span>\n    </div>\n    <button class=\"alarms__ack-all\" id=\"acknowledge-all-btn\">Acknowledge All</button>\n  </div>\n\n  <table class=\"alarms__table\">\n    <thead class=\"alarms__thead\">\n      <tr>\n        <th style=\"width: 100px;\">Time</th>\n        <th style=\"width: 120px;\">Device</th>\n        <th>Description</th>\n        <th style=\"width: 60px;\">Severity</th>\n        <th style=\"width: 110px; text-align: center;\">Action</th>\n      </tr>\n    </thead>\n    <tbody id=\"alarm-table\">\n      {{#each data}}\n      <tr class=\"alarms__row alarms__row--{{severityClass this.severity}} {{#if this.acknowledged}}alarms__row--ack{{/if}}\" data-id=\"{{this.id}}\" data-device-id=\"{{this.device}}\" onclick=\"window.location.href='/d/adsn27w/device-view?var-device_id=' + this.dataset.deviceId + '&var-power_plant_id={{this.power_plant_id}}&orgId=1&from=now-6h&to=now&timezone=browser'\">\n        <td>\n          <span class=\"alarms__time-main\">{{this.hora}}</span>\n        </td>\n        <td>{{this.device_name}}</td>\n        <td>{{this.description}}</td>\n        <td>\n          <span class=\"alarms__badge alarms__badge--{{severityClass this.severity}} {{#if (isNew this.timestamp)}}alarms__badge--new{{/if}}\">{{this.severity}}</span>\n        </td>\n        <td style=\"text-align: center;\">\n          {{#if this.acknowledged}}\n          <div class=\"alarms__ack-info\">\n            <strong>{{this.acknowledged_at}}</strong>\n            <span>{{this.acknowledged_by}}</span>\n          </div>\n          {{else}}\n          <button class=\"alarms__ack-btn acknowledge-btn\" data-alarm-db-id=\"{{this.id}}\">Acknowledge</button>\n          {{/if}}\n        </td>\n      </tr>\n      {{/each}}\n    </tbody>\n  </table>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "No high or medium severity alarms detected.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "afterRender",
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// ============================================\n// ALARMS TABLE - Helpers\n// ============================================\n\ncontext.handlebars.registerHelper('severityClass', (severity) => {\n  if (!severity) return 'low';\n  const s = severity.toString().toLowerCase();\n  if (s === 'high') return 'high';\n  if (s === 'medium') return 'medium';\n  return 'low';\n});\n\ncontext.handlebars.registerHelper('timeAgo', (timestamp) => {\n  if (!timestamp) return '';\n  try {\n    const now = new Date();\n    const then = new Date(timestamp);\n    const diffMs = now - then;\n    const diffMins = Math.floor(diffMs / 60000);\n    const diffHours = Math.floor(diffMs / 3600000);\n    const diffDays = Math.floor(diffMs / 86400000);\n    if (diffMins < 1) return 'just now';\n    if (diffMins < 60) return diffMins + 'min ago';\n    if (diffHours < 24) return diffHours + 'h ago';\n    if (diffDays < 7) return diffDays + 'd ago';\n    return Math.floor(diffDays / 7) + 'w ago';\n  } catch (e) { return ''; }\n});\n\ncontext.handlebars.registerHelper('isNew', (timestamp) => {\n  if (!timestamp) return false;\n  try {\n    const now = new Date();\n    const then = new Date(timestamp);\n    return (now - then) < 3600000;\n  } catch (e) { return false; }\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": false
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarms AS (\r\n  SELECT DISTINCT ON (device_id, code)\r\n    id,\r\n    timestamp,\r\n    power_plant_id,\r\n    power_plant_name,\r\n    device_id,\r\n    device_name,\r\n    code,\r\n    value AS code_value,\r\n    description,\r\n    severity,\r\n    acknowledged,\r\n    acknowledged_at,\r\n    acknowledged_by,\r\n    type\r\n  FROM dbt.int_events_alarms\r\n  ORDER BY\r\n    device_id,\r\n    code,\r\n    timestamp DESC\r\n)\r\nSELECT\r\n  to_char(la.timestamp, 'DD/MM/YYYY HH24:MI:SS') AS hora,\r\n  la.timestamp, \r\n  la.power_plant_id AS power_plant_id,\r\n  la.power_plant_name AS name,\r\n  la.device_id AS device,\r\n  la.device_name AS device_name,\r\n  la.code::TEXT AS code,\r\n  la.code_value,\r\n  la.description,\r\n  la.severity,\r\n  la.id::TEXT AS id,\r\n  la.acknowledged,\r\n  to_char(la.acknowledged_at, 'DD/MM/YYYY HH24:MI:SS') AS acknowledged_at,\r\n  la.acknowledged_by,\r\n  la.type\r\nFROM latest_alarms la\r\nWHERE la.type = 'alarm'\r\n  AND ('${power_plant_id}' = 'All' OR la.power_plant_id::TEXT = '${power_plant_id}')\r\nORDER BY\r\n  la.acknowledged ASC, \r\n  la.timestamp DESC    \r\nLIMIT 300;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    }
+  ],
+  "preload": false,
+  "refresh": "30s",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "https://api.nexus-gridco.com.br",
+          "value": "https://api.nexus-gridco.com.br"
+        },
+        "description": "Base URL for API (Admin only)",
+        "hide": 2,
+        "label": "API Endpoint",
+        "name": "api_endpoint",
+        "options": [
+          {
+            "selected": true,
+            "text": "https://api.nexus-gridco.com.br",
+            "value": "https://api.nexus-gridco.com.br"
+          }
+        ],
+        "query": "https://api.nexus-gridco.com.br",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "(312) São Bento V",
+          "value": "5"
+        },
+        "definition": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nwhere is_active is true\nORDER BY name;\n",
+        "name": "power_plant_id",
+        "options": [],
+        "query": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nwhere is_active is true\nORDER BY name;\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Powerplant_view",
+  "uid": "ad4v9dd",
+  "version": 135
+}

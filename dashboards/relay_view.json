@@ -1,0 +1,214 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 9,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.relay-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 20px;\n  background: linear-gradient(135deg, rgba(45,45,50,0.95), rgba(35,35,40,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.08);\n  font-family: Inter, system-ui, sans-serif;\n}\n.relay-header__nav {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n}\n.relay-header__back {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 8px 16px;\n  background: rgba(99,102,241,0.1);\n  border: 1px solid rgba(99,102,241,0.25);\n  border-radius: 8px;\n  color: #818cf8;\n  text-decoration: none;\n  font-size: 13px;\n  font-weight: 500;\n  transition: all 0.2s ease;\n}\n.relay-header__back:hover {\n  background: rgba(99,102,241,0.2);\n  border-color: rgba(99,102,241,0.4);\n  transform: translateX(-2px);\n}\n.relay-header__title {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n.relay-header__name {\n  font-size: 16px;\n  font-weight: 600;\n  color: #e5e7eb;\n}\n.relay-header__subtitle {\n  font-size: 11px;\n  color: #6b7280;\n}\n.relay-header__stats {\n  display: flex;\n  gap: 20px;\n}\n.relay-header__stat {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 8px 16px;\n  background: rgba(30,30,35,0.6);\n  border-radius: 8px;\n  border: 1px solid rgba(255,255,255,0.05);\n}\n.relay-header__stat-value {\n  font-size: 18px;\n  font-weight: 600;\n}\n.relay-header__stat-value--green { color: #4ade80; }\n.relay-header__stat-value--red { color: #f87171; }\n.relay-header__stat-label {\n  font-size: 10px;\n  color: #6b7280;\n  text-transform: uppercase;\n}\n</style>\n\n<div class=\"relay-header\">\n  <div class=\"relay-header__nav\">\n    <a href=\"/d/ad4v9dd/powerplant-view?var-power_plant_id={{data.[0].power_plant_id}}\" class=\"relay-header__back\">\n      <span>←</span> Back\n    </a>\n    <div class=\"relay-header__title\">\n      <span class=\"relay-header__name\">{{data.[0].power_plant_name}}</span>\n      <span class=\"relay-header__subtitle\">Protection Relays</span>\n    </div>\n  </div>\n  <div class=\"relay-header__stats\">\n    <div class=\"relay-header__stat\">\n      <span class=\"relay-header__stat-value relay-header__stat-value--green\">{{countNormal data}}</span>\n      <span class=\"relay-header__stat-label\">Normal</span>\n    </div>\n    <div class=\"relay-header__stat\">\n      <span class=\"relay-header__stat-value relay-header__stat-value--red\">{{countAlarm data}}</span>\n      <span class=\"relay-header__stat-label\">Critical</span>\n    </div>\n  </div>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "context.handlebars.registerHelper('countNormal', function(data) {\n  return data.filter(d => !d.has_high_alarm).length;\n});\n\ncontext.handlebars.registerHelper('countAlarm', function(data) {\n  return data.filter(d => d.has_high_alarm).length;\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarm_state AS (\n    SELECT DISTINCT ON (device_id, code)\n        device_id,\n        code,\n        type,\n        severity\n    FROM dbt.int_events_alarms\n    WHERE device_type_id = 2\n      AND power_plant_id = $power_plant_id\n    ORDER BY device_id, code, timestamp DESC\n),\nactive_high_alarms AS (\n    SELECT DISTINCT device_id\n    FROM latest_alarm_state\n    WHERE severity = 'high'\n      AND type = 'alarm'\n)\nSELECT \n    d.id as device_id,\n    pp.id as power_plant_id,\n    pp.name as power_plant_name,\n    CASE WHEN aha.device_id IS NOT NULL THEN true ELSE false END as has_high_alarm\nFROM public.tb_devices d\nJOIN public.tb_power_plants pp ON pp.id = d.power_plant_id\nLEFT JOIN active_high_alarms aha ON aha.device_id = d.id\nWHERE d.device_type_id = 2\n  AND d.is_active = true\n  AND d.power_plant_id = $power_plant_id",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n/* ===========================================\n   RELAY TABLE - BEM CSS\n   =========================================== */\n\n.relay-table {\n  font-family: Inter, system-ui, sans-serif;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0;\n  border-radius: 10px;\n  overflow: hidden;\n  font-size: 12px;\n}\n\n.relay-table__thead {\n  background: linear-gradient(135deg, rgba(33,38,45,1), rgba(28,33,40,1));\n}\n\n.relay-table__thead th {\n  padding: 12px 10px;\n  text-align: left;\n  font-weight: 600;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n  text-transform: uppercase;\n  color: #8b949e;\n  border-bottom: 1px solid #30363d;\n}\n\n.relay-table__row {\n  transition: all 0.15s ease;\n  cursor: pointer;\n}\n\n.relay-table__row:nth-child(odd) { background: rgba(22,27,34,0.8); }\n.relay-table__row:nth-child(even) { background: rgba(28,33,40,0.8); }\n.relay-table__row:hover { background: rgba(48,54,61,0.9) !important; }\n\n.relay-table__row td {\n  padding: 10px;\n  border-bottom: 1px solid rgba(48,54,61,0.5);\n  vertical-align: middle;\n  color: #e6edf3;\n}\n\n/* Status badge */\n.relay-table__status {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  padding: 4px 10px;\n  border-radius: 6px;\n  font-size: 10px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n\n.relay-table__status--normal {\n  background: rgba(34,197,94,0.15);\n  color: #4ade80;\n  border: 1px solid rgba(34,197,94,0.3);\n}\n\n.relay-table__status--alarm {\n  background: rgba(239,68,68,0.15);\n  color: #f87171;\n  border: 1px solid rgba(239,68,68,0.3);\n  animation: pulse-alarm 2s ease-in-out infinite;\n}\n\n@keyframes pulse-alarm {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.7; }\n}\n\n.relay-table__dot {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: currentColor;\n}\n\n/* Device name link */\n.relay-table__name {\n  font-weight: 500;\n  color: #58a6ff;\n  text-decoration: none;\n  transition: color 0.15s ease;\n}\n\n.relay-table__name:hover {\n  color: #79b8ff;\n  text-decoration: underline;\n}\n\n/* Values */\n.relay-table__value {\n  font-variant-numeric: tabular-nums;\n}\n\n.relay-table__value--power {\n  color: #58a6ff;\n  font-weight: 500;\n}\n\n.relay-table__value--voltage {\n  color: #f0883e;\n}\n\n.relay-table__value--current {\n  color: #a371f7;\n}\n\n.relay-table__unit {\n  font-size: 9px;\n  color: #6b7280;\n  margin-left: 2px;\n}\n\n/* Timestamp */\n.relay-table__time {\n  font-size: 11px;\n  color: #8b949e;\n  font-variant-numeric: tabular-nums;\n}\n</style>\n\n<table class=\"relay-table\">\n  <thead class=\"relay-table__thead\">\n    <tr>\n      <th style=\"width: 80px;\">Status</th>\n      <th style=\"width: 140px;\">Relay</th>\n      <th style=\"width: 60px;\">Cabin</th>\n      <th>Active Power</th>\n      <th>Apparent Power</th>\n      <th>Voltage AB</th>\n      <th>Voltage BC</th>\n      <th>Voltage CA</th>\n      <th>Current A</th>\n      <th>Current B</th>\n      <th>Current C</th>\n      <th style=\"width: 130px;\">Last Reading</th>\n    </tr>\n  </thead>\n  <tbody>\n    {{#each data}}\n    <tr class=\"relay-table__row\" onclick=\"window.location.href='/d/adsn27w/device-view?var-device_id={{this.device_id}}&var-power_plant_id={{this.power_plant_id}}'\">\n      <td>\n        <span class=\"relay-table__status {{statusClass this.has_high_alarm}}\">\n          <span class=\"relay-table__dot\"></span>\n          {{statusLabel this.has_high_alarm}}\n        </span>\n      </td>\n      <td>\n        <a href=\"/d/adsn27w/device-view?var-device_id={{this.device_id}}&var-power_plant_id={{this.power_plant_id}}\" class=\"relay-table__name\" onclick=\"event.stopPropagation()\">\n          {{this.relay}}\n        </a>\n      </td>\n      <td>{{this.cabine}}</td>\n      <td><span class=\"relay-table__value relay-table__value--power\">{{this.potencia_ativa_kw}}<span class=\"relay-table__unit\">kW</span></span></td>\n      <td><span class=\"relay-table__value\">{{this.potencia_aparente_kva}}<span class=\"relay-table__unit\">kVA</span></span></td>\n      <td><span class=\"relay-table__value relay-table__value--voltage\">{{this.tensao_ab_v}}<span class=\"relay-table__unit\">V</span></span></td>\n      <td><span class=\"relay-table__value relay-table__value--voltage\">{{this.tensao_bc_v}}<span class=\"relay-table__unit\">V</span></span></td>\n      <td><span class=\"relay-table__value relay-table__value--voltage\">{{this.tensao_ca_v}}<span class=\"relay-table__unit\">V</span></span></td>\n      <td><span class=\"relay-table__value relay-table__value--current\">{{this.corrente_a_a}}<span class=\"relay-table__unit\">A</span></span></td>\n      <td><span class=\"relay-table__value relay-table__value--current\">{{this.corrente_b_a}}<span class=\"relay-table__unit\">A</span></span></td>\n      <td><span class=\"relay-table__value relay-table__value--current\">{{this.corrente_c_a}}<span class=\"relay-table__unit\">A</span></span></td>\n      <td><span class=\"relay-table__time\">{{this.ultima_leitura}}</span></td>\n    </tr>\n    {{/each}}\n  </tbody>\n</table>",
+        "contentPartials": [],
+        "defaultContent": "No relays found for this power plant.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// Status class\ncontext.handlebars.registerHelper('statusClass', function(hasAlarm) {\n  return hasAlarm ? 'relay-table__status--alarm' : 'relay-table__status--normal';\n});\n\n// Status label\ncontext.handlebars.registerHelper('statusLabel', function(hasAlarm) {\n  return hasAlarm ? 'Critical' : 'Normal';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarm_state AS (\n    SELECT DISTINCT ON (device_id, code)\n        device_id,\n        code,\n        type,\n        severity\n    FROM dbt.int_events_alarms\n    WHERE device_type_id = 2\n      AND power_plant_id = $power_plant_id\n    ORDER BY device_id, code, timestamp DESC\n),\nactive_high_alarms AS (\n    SELECT DISTINCT device_id\n    FROM latest_alarm_state\n    WHERE severity = 'high'\n      AND type = 'alarm'\n)\nSELECT \n    d.id as device_id,\n    pp.id as power_plant_id,\n    d.device_name as relay,\n    COALESCE(d.cabin, 0) as cabine,\n    ROUND(COALESCE(rl.active_power, 0)::numeric, 2) as potencia_ativa_kw,\n    ROUND(COALESCE(rl.apparent_power, 0)::numeric, 2) as potencia_aparente_kva,\n    ROUND(COALESCE(rl.line_voltage_ab, 0)::numeric, 1) as tensao_ab_v,\n    ROUND(COALESCE(rl.line_voltage_bc, 0)::numeric, 1) as tensao_bc_v,\n    ROUND(COALESCE(rl.line_voltage_ca, 0)::numeric, 1) as tensao_ca_v,\n    ROUND(COALESCE(rl.current_phase_a, 0)::numeric, 1) as corrente_a_a,\n    ROUND(COALESCE(rl.current_phase_b, 0)::numeric, 1) as corrente_b_a,\n    ROUND(COALESCE(rl.current_phase_c, 0)::numeric, 1) as corrente_c_a,\n    TO_CHAR(rl.timestamp, 'DD/MM/YY HH24:MI') as ultima_leitura,\n    CASE WHEN aha.device_id IS NOT NULL THEN true ELSE false END as has_high_alarm\nFROM public.tb_devices d\nJOIN public.tb_power_plants pp ON pp.id = d.power_plant_id\nLEFT JOIN dbt.int_relay_latest_readings rl ON rl.device_id = d.id\nLEFT JOIN active_high_alarms aha ON aha.device_id = d.id\nWHERE d.device_type_id = 2\n  AND d.is_active = true\n  AND d.power_plant_id = $power_plant_id\nORDER BY \n  CASE WHEN aha.device_id IS NOT NULL THEN 0 ELSE 1 END,\n  d.device_name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "(312) São Bento V",
+          "value": "5"
+        },
+        "definition": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nWHERE is_active = true\nORDER BY name;\n",
+        "name": "power_plant_id",
+        "options": [],
+        "query": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nWHERE is_active = true\nORDER BY name;\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Relay_view",
+  "uid": "ad66btx",
+  "version": 17
+}

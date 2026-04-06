@@ -1,0 +1,343 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "visao tabular de todas as usinas",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<div style=\"text-align: left;\">\n  <a\n    href=\"/d/adwn46n/overview-1-1?orgId=1&from=now/M&to=now&refresh=10s\"\n          /d/adwn46n/overview-1-1?orgId=5&from=now/M&to=now&timezone=browser&var-power_plant_id=All&var-Powerplant_filter=All&refresh=30s\n    onclick=\"window.acksRestored=false;\"\n    style=\"\n      display: inline-block;\n      padding: 10px 14px;\n      background: #333333;\n      color: #e0e0e0;\n      border: 1px solid #424242;\n      border-radius: 6px;\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n      font-size: 14px;\n      font-weight: 600;\n      text-decoration: none;\n      cursor: pointer;\n    \"\n    onmouseover=\"this.style.background='#3a3a3a'\"\n    onmouseout=\"this.style.background='#333333'\"\n  >\n    Switch to Alarm View\n  </a>\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "12.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 13,
+        "x": 0,
+        "y": 2
+      },
+      "id": 25,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.portfolio {\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  padding: 16px;\n  color: #e6edf3;\n}\n.portfolio__header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 20px;\n  padding-bottom: 12px;\n  border-bottom: 1px solid #30363d;\n}\n.portfolio__title {\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 1.2px;\n  color: #8b949e;\n  text-transform: uppercase;\n}\n.portfolio__grid {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.portfolio__card {\n  background: #161b22;\n  border: 1px solid #30363d;\n  border-radius: 6px;\n  padding: 14px 12px;\n  text-align: center;\n  transition: all 0.2s ease;\n}\n.portfolio__card:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0,0,0,0.3);\n  border-color: #484f58;\n}\n.portfolio__card--highlight {\n  border-color: #1f6feb;\n}\n.portfolio__card--highlight:hover {\n  border-color: #388bfd;\n}\n.portfolio__card--status {\n  border-left-width: 3px;\n  border-left-style: solid;\n}\n.portfolio__card--green { border-left-color: #3fb950; }\n.portfolio__card--yellow { border-left-color: #d29922; }\n.portfolio__card--red { border-left-color: #f85149; }\n.portfolio__card--gray { border-left-color: #8b949e; }\n.portfolio__label {\n  font-size: 10px;\n  font-weight: 500;\n  letter-spacing: 0.8px;\n  text-transform: uppercase;\n  color: #8b949e;\n  margin-bottom: 8px;\n}\n.portfolio__value {\n  font-size: 28px;\n  font-weight: 300;\n  line-height: 1.1;\n  font-variant-numeric: tabular-nums;\n}\n.portfolio__value--blue { color: #58a6ff; }\n.portfolio__value--white { color: #e6edf3; }\n.portfolio__value--green { color: #3fb950; }\n.portfolio__value--yellow { color: #d29922; }\n.portfolio__value--red { color: #f85149; }\n.portfolio__value--gray { color: #8b949e; }\n.portfolio__unit {\n  font-size: 11px;\n  color: #6e7681;\n  margin-left: 2px;\n  font-weight: 400;\n}\n.portfolio__subtitle {\n  font-size: 10px;\n  color: #6e7681;\n  margin-top: 4px;\n  font-variant-numeric: tabular-nums;\n}\n</style>\n\n{{#each data}}\n<div class=\"portfolio\">\n  <div class=\"portfolio__header\">\n    <span class=\"portfolio__title\">Portfolio Overview</span>\n  </div>\n\n  <div class=\"portfolio__grid\">\n    <div class=\"portfolio__card portfolio__card--highlight\">\n      <div class=\"portfolio__label\">Active Power</div>\n      <div class=\"portfolio__value portfolio__value--blue\">{{this.active_power_mw}}<span class=\"portfolio__unit\">MW</span></div>\n    </div>\n\n    <div class=\"portfolio__card\">\n      <div class=\"portfolio__label\">Rated Power</div>\n      <div class=\"portfolio__value portfolio__value--white\">{{this.rated_power_mw}}<span class=\"portfolio__unit\">MW</span></div>\n    </div>\n\n    <div class=\"portfolio__card\">\n      <div class=\"portfolio__label\">Inverters</div>\n      <div class=\"portfolio__value portfolio__value--green\">{{this.inverter_availability}}<span class=\"portfolio__unit\">%</span></div>\n      <div class=\"portfolio__subtitle\">{{this.active_inverters}} / {{this.total_inverters}}</div>\n    </div>\n\n    <div class=\"portfolio__card\">\n      <div class=\"portfolio__label\">Relays</div>\n      <div class=\"portfolio__value portfolio__value--green\">{{this.relay_availability}}<span class=\"portfolio__unit\">%</span></div>\n      <div class=\"portfolio__subtitle\">{{this.active_relays}} / {{this.total_relays}}</div>\n    </div>\n  </div>\n\n  <div class=\"portfolio__grid\">\n    <div class=\"portfolio__card portfolio__card--status portfolio__card--green\">\n      <div class=\"portfolio__label\">Generating / Waiting</div>\n      <div class=\"portfolio__value portfolio__value--green\">{{this.generating}} / {{this.waiting}}</div>\n    </div>\n\n    <div class=\"portfolio__card portfolio__card--status portfolio__card--yellow\">\n      <div class=\"portfolio__label\">Medium</div>\n      <div class=\"portfolio__value portfolio__value--yellow\">{{this.medium}}</div>\n    </div>\n\n    <div class=\"portfolio__card portfolio__card--status portfolio__card--red\">\n      <div class=\"portfolio__label\">Critical</div>\n      <div class=\"portfolio__value portfolio__value--red\">{{this.critical_total}}</div>\n    </div>\n\n    <div class=\"portfolio__card portfolio__card--status portfolio__card--gray\">\n      <div class=\"portfolio__label\">No Comm</div>\n      <div class=\"portfolio__value portfolio__value--gray\">{{this.no_comm}}</div>\n    </div>\n  </div>\n</div>\n{{/each}}",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [],
+        "externalStyles": [],
+        "helpers": "",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": false
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  ROUND(p.active_power_kw / 1000, 2) as active_power_mw,\r\n  ROUND(p.rated_power_kw / 1000, 1) as rated_power_mw,\r\n  ROUND(i.inverter_availability, 1) as inverter_availability,\r\n  ROUND(r.relay_availability, 1) as relay_availability,\r\n  p.generating,\r\n  p.waiting,\r\n  p.medium,\r\n  p.critical,\r\n  p.acknowledged,\r\n  (p.critical + p.acknowledged) as critical_total,\r\n  p.no_comm,\r\n  i.active_inverters,\r\n  i.total_inverters,\r\n  r.active_relays,\r\n  r.total_relays\r\nFROM (\r\n  SELECT\r\n    SUM(active_power_kw) as active_power_kw,\r\n    SUM(rated_power_kw) as rated_power_kw,\r\n    -- GENERATING: gerando + power > 0 + inverter = 100%\r\n    SUM(CASE WHEN power_plant_status = 'generating' AND active_power_kw > 0 AND inverter_availability_pct = 100 THEN 1 ELSE 0 END) as generating,\r\n    -- WAITING: gerando + power = 0 + inverter = 100%\r\n    SUM(CASE WHEN power_plant_status = 'generating' AND active_power_kw = 0 AND inverter_availability_pct = 100 THEN 1 ELSE 0 END) as waiting,\r\n    -- MEDIUM: gerando + inverter < 100%\r\n    SUM(CASE WHEN power_plant_status = 'generating' AND inverter_availability_pct < 100 THEN 1 ELSE 0 END) as medium,\r\n    -- CRITICAL: critical\r\n    SUM(CASE WHEN power_plant_status = 'critical' THEN 1 ELSE 0 END) as critical,\r\n    -- ACKNOWLEDGED: acknowledged\r\n    SUM(CASE WHEN power_plant_status = 'acknowledged' THEN 1 ELSE 0 END) as acknowledged,\r\n    -- NO COMM: sem comunicação\r\n    SUM(CASE WHEN power_plant_status = 'no_communication' THEN 1 ELSE 0 END) as no_comm\r\n  FROM dbt.mart_power_plants_overview\r\n  WHERE ('${power_plant_id}' = 'All' OR power_plant_id::text = '${power_plant_id}')\r\n) p\r\nCROSS JOIN (\r\n  SELECT\r\n    SUM(active_inverters) as active_inverters,\r\n    SUM(total_inverters) as total_inverters,\r\n    SUM(active_inverters)::numeric / NULLIF(SUM(total_inverters), 0) * 100 as inverter_availability\r\n  FROM dbt.int_inverter_availability\r\n  WHERE ('${power_plant_id}' = 'All' OR power_plant_id::text = '${power_plant_id}')\r\n) i\r\nCROSS JOIN (\r\n  SELECT\r\n    SUM(active_relays) as active_relays,\r\n    SUM(total_relays) as total_relays,\r\n    SUM(active_relays)::numeric / NULLIF(SUM(total_relays), 0) * 100 as relay_availability\r\n  FROM dbt.int_relay_availability\r\n  WHERE ('${power_plant_id}' = 'All' OR power_plant_id::text = '${power_plant_id}')\r\n) r",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 13,
+        "y": 2
+      },
+      "id": 22,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.energy-chart {\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  padding: 16px;\n  color: #e6edf3;\n}\n.energy-chart__header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 20px;\n  padding-bottom: 12px;\n  border-bottom: 1px solid #30363d;\n}\n.energy-chart__title {\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 1.2px;\n  color: #8b949e;\n  text-transform: uppercase;\n}\n.energy-chart__live {\n  font-size: 10px;\n  color: #3fb950;\n  display: flex;\n  align-items: center;\n  gap: 6px;\n}\n.energy-chart__live::before {\n  content: '';\n  width: 6px;\n  height: 6px;\n  background: #3fb950;\n  border-radius: 50%;\n  animation: pulse 2s infinite;\n}\n@keyframes pulse {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.4; }\n}\n.energy-chart__body {\n  display: grid;\n  grid-template-columns: 45px 1fr;\n  grid-template-rows: 160px auto;\n  gap: 0;\n}\n.energy-chart__y-axis {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: flex-end;\n  padding-right: 10px;\n  padding-top: 8px;\n  padding-bottom: 0;\n}\n.energy-chart__y-label {\n  font-size: 10px;\n  color: #6e7681;\n  font-variant-numeric: tabular-nums;\n}\n.energy-chart__plot {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  gap: 3px;\n  padding: 8px 8px 0 12px;\n  border-left: 1px solid #30363d;\n  border-bottom: 1px solid #30363d;\n}\n.energy-chart__grid-line {\n  position: absolute;\n  left: 0;\n  right: 0;\n  height: 1px;\n  background: rgba(48, 54, 61, 0.6);\n  pointer-events: none;\n}\n.energy-chart__bar-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  height: 100%;\n  justify-content: flex-end;\n  min-width: 0;\n}\n.energy-chart__bar-value {\n  font-size: 8px;\n  color: #8b949e;\n  font-weight: 500;\n  margin-bottom: 3px;\n  font-variant-numeric: tabular-nums;\n}\n.energy-chart__bar {\n  width: 65%;\n  max-width: 20px;\n  min-width: 6px;\n  background: linear-gradient(180deg, #3fb950 0%, #238636 100%);\n  border-radius: 2px 2px 0 0;\n  transition: all 0.2s ease;\n}\n.energy-chart__bar:hover {\n  background: linear-gradient(180deg, #56d364 0%, #3fb950 100%);\n  filter: brightness(1.1);\n}\n.energy-chart__x-axis {\n  grid-column: 2;\n  display: flex;\n  gap: 3px;\n  padding: 6px 8px 0 12px;\n}\n.energy-chart__x-label {\n  flex: 1;\n  text-align: center;\n  font-size: 9px;\n  color: #6e7681;\n  min-width: 0;\n  white-space: nowrap;\n}\n</style>\n\n<div class=\"energy-chart\">\n  <div class=\"energy-chart__header\">\n    <span class=\"energy-chart__title\">Daily Energy (MWh)</span>\n    <span class=\"energy-chart__live\">LIVE</span>\n  </div>\n  <div class=\"energy-chart__body\">\n    <div class=\"energy-chart__y-axis\">\n      {{#each yLabels}}\n      <span class=\"energy-chart__y-label\">{{this}}</span>\n      {{/each}}\n    </div>\n    <div class=\"energy-chart__plot\">\n      {{#each gridLines}}\n      <div class=\"energy-chart__grid-line\" style=\"bottom: {{this}}%;\"></div>\n      {{/each}}\n      {{#each data}}\n      <div class=\"energy-chart__bar-container\">\n        <span class=\"energy-chart__bar-value\">{{this.energy_mwh}}</span>\n        <div class=\"energy-chart__bar\" style=\"height: {{barPct this.energy_mwh}}%;\"></div>\n      </div>\n      {{/each}}\n    </div>\n    <div></div>\n    <div class=\"energy-chart__x-axis\">\n      {{#each data}}\n      <span class=\"energy-chart__x-label\">{{xLabel @index this.day_label}}</span>\n      {{/each}}\n    </div>\n  </div>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// ============================================\n// ENERGY BAR CHART - Helpers Configuration\n// ============================================\n\nconst dataFrame = context.dataFrame;\n\n// Extrai valores de energia\nlet maxValue = 100;\nlet dataLength = 0;\n\nif (dataFrame && dataFrame.fields) {\n  const energyField = dataFrame.fields.find(f => f.name === 'energy_mwh');\n  if (energyField && energyField.values) {\n    const values = energyField.values.filter(v => v !== null && v !== undefined);\n    dataLength = values.length;\n    if (values.length > 0) {\n      maxValue = Math.max(...values);\n    }\n  }\n}\n\n// Calcula escala do eixo Y (arredonda para múltiplo de 100)\nconst roundTo = 100;\nconst maxScale = Math.max(Math.ceil(maxValue / roundTo) * roundTo, roundTo);\nconst ySteps = Math.min(maxScale / roundTo, 5); // máximo 5 divisões\nconst yInterval = maxScale / ySteps;\n\n// Gera array de labels do eixo Y (de cima para baixo)\nconst yLabels = [];\nfor (let i = maxScale; i >= 0; i -= yInterval) {\n  yLabels.push(Math.round(i));\n}\ncontext.yLabels = yLabels;\n\n// Gera posições das linhas de grade (em porcentagem)\nconst gridLines = [];\nfor (let i = 1; i < ySteps; i++) {\n  gridLines.push(Math.round((i / ySteps) * 100));\n}\ncontext.gridLines = gridLines;\n\n// Helper: calcula altura da barra em porcentagem\ncontext.handlebars.registerHelper('barPct', (value) => {\n  if (value === null || value === undefined || value === 0) return 2;\n  const pct = (value / maxScale) * 100;\n  return Math.max(pct, 2).toFixed(1);\n});\n\n// Helper: decide se mostra label do eixo X\n// Mostra: primeiro, último, e a cada N intervalos\ncontext.handlebars.registerHelper('xLabel', (index, label) => {\n  const total = dataLength;\n  if (total <= 10) return label; // poucos dados, mostra todos\n  \n  const interval = Math.ceil(total / 7); // ~7 labels visíveis\n  const isFirst = index === 0;\n  const isLast = index === total - 1;\n  const isInterval = index % interval === 0;\n  \n  return (isFirst || isLast || isInterval) ? label : '';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": false
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "  SELECT                                                                                                             \r\n    TO_CHAR(sub.dia, 'DD/MM') AS day_label,                                                                          \r\n    ROUND(SUM(sub.max_energy) / 1000, 0) AS energy_mwh                                                               \r\n  FROM (                                                                                                             \r\n    SELECT                                                                                                           \r\n      date_trunc('day', s.timestamp) as dia,                                                                         \r\n      s.device_id,                                                                                                   \r\n      MAX(s.daily_active_energy) as max_energy                                                                       \r\n    FROM dbt.stg_inverter_analogic_data s                                                                            \r\n    WHERE $__timeFilter(s.timestamp)                                                                                 \r\n      AND s.timestamp::time >= '01:00:00'                                                                            \r\n      AND ('${power_plant_id}' = 'All' OR s.power_plant_id::text = '${power_plant_id}')                              \r\n    GROUP BY 1, 2                                                                                                    \r\n  ) sub                                                                                                              \r\n  GROUP BY sub.dia                                                                                                   \r\n  ORDER BY sub.dia ASC   ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 44,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 23,
+      "links": [
+        {
+          "title": "Versão com Mapa",
+          "url": "/d/adwn46n/ppo-tela-1-1?orgId=1&from=now-6h&to=now&timezone=browser"
+        }
+      ],
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n.plants-table {\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0;\n  border-radius: 8px;\n  overflow: hidden;\n  font-size: 13px;\n}\n.plants-table__header {\n  background: #21262d;\n}\n.plants-table__header th {\n  padding: 12px 10px;\n  text-align: left;\n  font-weight: 600;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  text-transform: uppercase;\n  color: #8b949e;\n  border-bottom: 1px solid #30363d;\n}\n.plants-table__row {\n  transition: background-color 0.15s ease;\n  cursor: pointer;\n}\n.plants-table__row:nth-child(odd) { background: #161b22; }\n.plants-table__row:nth-child(even) { background: #1c2128; }\n.plants-table__row:hover { background: #262c36 !important; }\n.plants-table__row td {\n  padding: 10px;\n  border-bottom: 1px solid #21262d;\n  vertical-align: middle;\n}\n.plants-table__link {\n  text-decoration: none;\n  transition: opacity 0.15s;\n}\n.plants-table__link:hover { opacity: 0.8; text-decoration: underline; }\n.plants-table__icon {\n  width: 40px;\n  height: 40px;\n  display: block;\n  margin: 0 auto;\n}\n.plants-table__logo {\n  height: 40px;\n  width: auto;\n  display: block;\n  margin: 0 auto;\n}\n</style>\n\n<div style=\"padding: 8px;\">\n  <table class=\"plants-table\">\n    <thead class=\"plants-table__header\">\n      <tr>\n        <th style=\"width: 50px; text-align: center;\">\n          <img src=\"https://iili.io/f5pMDZB.png\" class=\"plants-table__logo\" alt=\"Logo\">\n        </th>\n        <th>Name</th>\n        <th>Status</th>\n        <th>Rated Power</th>\n        <th>Active Power</th>\n        <th>Irrad.</th>\n        <th>Inverter Avail.</th>\n        <th>Relay Avail.</th>\n        <th>PR</th>\n        <th>Last Alarm</th>\n        <th>Urgency</th>\n      </tr>\n    </thead>\n    <tbody>\n      {{#each data}}\n      <tr class=\"plants-table__row\" style=\"color: {{rowColor this.power_plant_status this.inverter_availability_pct}};\" onclick=\"window.location.href='/d/ad4v9dd/powerplant-view?orgId=1&var-power_plant_id={{this.power_plant_id}}&from=now/d&to=now&timezone=browser'\">\n        <td style=\"text-align: center;\">\n          <img src=\"https://iili.io/f5m1jKG.png\" class=\"plants-table__icon\" style=\"{{iconFilter this.power_plant_status this.inverter_availability_pct}}\" alt=\"Status\">\n        </td>\n        <td>\n          <a href=\"/d/ad4v9dd/powerplant-view?orgId=1&var-power_plant_id={{this.power_plant_id}}&from=now/d&to=now&timezone=browser\" class=\"plants-table__link\" style=\"color: {{rowColor this.power_plant_status this.inverter_availability_pct}};\" onclick=\"event.stopPropagation()\">\n            {{this.power_plant_name}}\n          </a>\n        </td>\n        <td style=\"font-weight: 600;\">{{statusLabel this.power_plant_status this.inverter_availability_pct}}</td>\n        <td>{{this.rated_power_kw}} kW</td>\n        <td>{{this.active_power_kw}} kW</td>\n        <td>{{this.irradiance_wm2}} W/m²</td>\n        <td>{{this.inverter_availability_pct}} %</td>\n        <td>{{this.rates_availability_pct}} %</td>\n        <td>{{this.pr_pct}} %</td>\n        <td>{{showAlarm this.power_plant_status this.last_alarm_time}}</td>\n        <td>{{showUrgency this.power_plant_status this.alarm_urgency}}</td>\n      </tr>\n      {{/each}}\n    </tbody>\n  </table>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// ===========================================\n// PLANTS TABLE - Helpers\n// ===========================================\n\n// Retorna a cor inline baseado no status\ncontext.handlebars.registerHelper('rowColor', function(status, inverterPct) {\n  if (status === 'critical') return '#f85149';\n  if (status === 'acknowledged') return '#f0883e';\n  if (status === 'no_communication') return '#8b949e';\n  if (status === 'generating' && inverterPct < 100) return '#d29922';\n  if (status === 'generating') return '#3fb950';\n  return '#e6edf3';\n});\n\n// Retorna o filtro CSS para o ícone\ncontext.handlebars.registerHelper('iconFilter', function(status, inverterPct) {\n  if (status === 'critical') return 'filter: brightness(0) saturate(100%) invert(47%) sepia(94%) saturate(3506%) hue-rotate(336deg) brightness(100%) contrast(94%);';\n  if (status === 'acknowledged') return 'filter: brightness(0) saturate(100%) invert(65%) sepia(85%) saturate(1500%) hue-rotate(360deg) brightness(100%) contrast(100%);';\n  if (status === 'no_communication') return 'filter: grayscale(100%) brightness(60%);';\n  if (status === 'generating' && inverterPct < 100) return 'filter: brightness(0) saturate(100%) invert(65%) sepia(85%) saturate(1500%) hue-rotate(360deg) brightness(100%) contrast(100%);';\n  if (status === 'generating') return 'filter: brightness(0) saturate(100%) invert(73%) sepia(55%) saturate(459%) hue-rotate(82deg) brightness(95%) contrast(88%);';\n  return '';\n});\n\n// Label do status\ncontext.handlebars.registerHelper('statusLabel', function(status, inverterPct) {\n  if (status === 'critical') return 'CRITICAL';\n  if (status === 'acknowledged') return 'ACKNOWLEDGED';\n  if (status === 'no_communication') return 'NO COMM';\n  if (status === 'generating') return 'GENERATING';\n  return status ? status.toUpperCase() : '';\n});\n\n// Mostra alarme apenas para critical e acknowledged\ncontext.handlebars.registerHelper('showAlarm', function(status, alarmTime) {\n  if (status === 'critical' || status === 'acknowledged') {\n    return alarmTime || '';\n  }\n  return '';\n});\n\n// Mostra urgência apenas para critical e acknowledged\ncontext.handlebars.registerHelper('showUrgency', function(status, urgency) {\n  if (status === 'critical' || status === 'acknowledged') {\n    return urgency || '';\n  }\n  return '';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": false
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "ff786imwl6k1sf"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT                                                       \r\n      p.id AS power_plant_id,                                  \r\n      p.name AS power_plant_name,                              \r\n      m.power_plant_status,                                    \r\n      m.rated_power_kw,                                        \r\n      m.active_power_kw,                                       \r\n      m.daily_energy_kwh,                                      \r\n      m.irradiance_wm2,                                        \r\n      m.inverter_availability_pct,                             \r\n      m.rates_availability_pct,                                \r\n      m.pr_pct * 100 AS pr_pct,                                \r\n                                                               \r\n      -- Último alarme HIGH (para exibir data/hora)            \r\n      la.last_alarm_time,                                      \r\n                                                               \r\n      -- Urgência baseada no tempo do alarme                   \r\n      CASE                                                     \r\n          WHEN m.power_plant_status = 'acknowledged' THEN 'ACK'\r\n          WHEN m.power_plant_status = 'critical' AND           \r\n  la.last_alarm_time IS NOT NULL THEN                          \r\n              CASE                                             \r\n                  WHEN la.last_alarm_at > CURRENT_TIMESTAMP -  \r\n  INTERVAL '1 hour' THEN 'NEW'                                 \r\n                  WHEN la.last_alarm_at > CURRENT_TIMESTAMP -  \r\n  INTERVAL '24 hours' THEN 'RECENT'                            \r\n                  WHEN la.last_alarm_at > CURRENT_TIMESTAMP -  \r\n  INTERVAL '7 days' THEN 'ONGOING'                             \r\n                  ELSE 'CHRONIC'                               \r\n              END                                              \r\n          ELSE NULL                                            \r\n      END AS alarm_urgency                                     \r\n                                                               \r\n  FROM public.tb_power_plants p                                \r\n  LEFT JOIN dbt.mart_power_plants_overview m ON                \r\n  m.power_plant_id = p.id                                      \r\n  LEFT JOIN (                                                  \r\n      SELECT                                                   \r\n          power_plant_id,                                      \r\n          MAX(timestamp) AS last_alarm_at,                     \r\n          TO_CHAR(MAX(timestamp), 'DD/MM HH24:MI') AS          \r\n  last_alarm_time                                              \r\n      FROM dbt.int_events_alarms                               \r\n      WHERE LOWER(severity) = 'high'                           \r\n      GROUP BY power_plant_id                                  \r\n  ) la ON p.id = la.power_plant_id                             \r\n                                                               \r\n  WHERE p.is_active = true                                     \r\n    AND ('${Power_plant_filter}' = 'All' OR                    \r\n  m.power_plant_status = '${Power_plant_filter}')              \r\n    AND ('${power_plant_id}' = 'All' OR p.id::TEXT =           \r\n  '${power_plant_id}')                                         \r\n                                                               \r\n  ORDER BY                                                     \r\n      CASE                                                     \r\n          WHEN m.power_plant_status = 'critical' THEN 1        \r\n          WHEN m.power_plant_status = 'acknowledged' THEN 2    \r\n          WHEN m.power_plant_status = 'generating' AND         \r\n  m.inverter_availability_pct < 100 THEN 3                     \r\n          WHEN m.power_plant_status = 'no_communication' THEN 4\r\n          WHEN m.power_plant_status = 'generating' THEN 5      \r\n          ELSE 6                                               \r\n      END,                                                     \r\n      la.last_alarm_at DESC NULLS LAST,                        \r\n      p.name ASC",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    }
+  ],
+  "preload": false,
+  "refresh": "10s",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "All",
+          "value": "All"
+        },
+        "definition": "SELECT 'All' AS power_plant_status\nUNION ALL\nSELECT DISTINCT power_plant_status\nFROM dbt.mart_power_plants_overview\nORDER BY power_plant_status;",
+        "name": "Power_plant_filter",
+        "options": [],
+        "query": "SELECT 'All' AS power_plant_status\nUNION ALL\nSELECT DISTINCT power_plant_status\nFROM dbt.mart_power_plants_overview\nORDER BY power_plant_status;",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": "All"
+        },
+        "definition": "SELECT * FROM (\n  SELECT\n    'All'::text AS \"__text\",\n    'All'::text AS \"__value\"\n  UNION ALL\n  SELECT\n    power_plant_name::text AS \"__text\",\n    power_plant_id::text   AS \"__value\"\n  FROM dbt.mart_power_plants_overview\n) x\nORDER BY\n  CASE WHEN \"__text\" = 'All' THEN 0 ELSE 1 END,\n  \"__text\";\n",
+        "name": "power_plant_id",
+        "options": [],
+        "query": "SELECT * FROM (\n  SELECT\n    'All'::text AS \"__text\",\n    'All'::text AS \"__value\"\n  UNION ALL\n  SELECT\n    power_plant_name::text AS \"__text\",\n    power_plant_id::text   AS \"__value\"\n  FROM dbt.mart_power_plants_overview\n) x\nORDER BY\n  CASE WHEN \"__text\" = 'All' THEN 0 ELSE 1 END,\n  \"__text\";\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/M",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Overview_1.2",
+  "uid": "adwv46w",
+  "version": 230
+}

@@ -1,0 +1,514 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 8,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "afterRender": "",
+        "content": "<style>\n/* ===========================================\n   DEVICE HEADER - BEM CSS\n   =========================================== */\n\n.device-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 20px;\n  background: linear-gradient(135deg, rgba(45,45,50,0.95), rgba(35,35,40,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.08);\n  font-family: Inter, system-ui, sans-serif;\n}\n\n.device-header__nav {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n}\n\n.device-header__back {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 8px 16px;\n  background: rgba(99,102,241,0.1);\n  border: 1px solid rgba(99,102,241,0.25);\n  border-radius: 8px;\n  color: #818cf8;\n  text-decoration: none;\n  font-size: 13px;\n  font-weight: 500;\n  transition: all 0.2s ease;\n}\n\n.device-header__back:hover {\n  background: rgba(99,102,241,0.2);\n  border-color: rgba(99,102,241,0.4);\n  transform: translateX(-2px);\n}\n\n.device-header__back-icon {\n  font-size: 16px;\n}\n\n.device-header__breadcrumb {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  font-size: 13px;\n  color: #6b7280;\n}\n\n.device-header__breadcrumb-sep {\n  color: #4b5563;\n}\n\n.device-header__breadcrumb-current {\n  color: #e5e7eb;\n  font-weight: 500;\n}\n\n.device-header__info {\n  display: flex;\n  align-items: center;\n  gap: 24px;\n}\n\n.device-header__detail {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n\n.device-header__label {\n  font-size: 10px;\n  color: #6b7280;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n\n.device-header__value {\n  font-size: 14px;\n  color: #e5e7eb;\n  font-weight: 500;\n}\n\n.device-header__status {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  padding: 6px 12px;\n  border-radius: 6px;\n  font-size: 11px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n\n.device-header__status--generating {\n  background: rgba(34,197,94,0.15);\n  border: 1px solid rgba(34,197,94,0.3);\n  color: #4ade80;\n}\n\n.device-header__status--critical {\n  background: rgba(239,68,68,0.15);\n  border: 1px solid rgba(239,68,68,0.3);\n  color: #f87171;\n  animation: pulse-status 2s ease-in-out infinite;\n}\n\n.device-header__status--offline {\n  background: rgba(107,114,128,0.15);\n  border: 1px solid rgba(107,114,128,0.3);\n  color: #9ca3af;\n}\n\n@keyframes pulse-status {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.7; }\n}\n\n.device-header__dot {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: currentColor;\n}\n</style>\n\n<div class=\"device-header\">\n  <div class=\"device-header__nav\">\n    <a href=\"/d/ad4v9dd/powerplant-view?orgId=1&from=now/d&to=now&timezone=browser&var-power_plant_id={{data.[0].power_plant_id}}\" class=\"device-header__back\">\n      <span class=\"device-header__back-icon\">←</span>\n      Back\n    </a>\n    <div class=\"device-header__breadcrumb\">\n      <span>{{data.[0].power_plant_name}}</span>\n      <span class=\"device-header__breadcrumb-sep\">/</span>\n      <span class=\"device-header__breadcrumb-current\">{{data.[0].device_name}}</span>\n    </div>\n  </div>\n  <div class=\"device-header__info\">\n    <div class=\"device-header__detail\">\n      <span class=\"device-header__label\">Type</span>\n      <span class=\"device-header__value\">{{data.[0].device_type}}</span>\n    </div>\n    <div class=\"device-header__detail\">\n      <span class=\"device-header__label\">Cabin</span>\n      <span class=\"device-header__value\">{{data.[0].cabin}}</span>\n    </div>\n    <div class=\"device-header__status {{headerStatusClass data.[0].has_active_alarm}}\">\n      <span class=\"device-header__dot\"></span>\n      {{headerStatusLabel data.[0].has_active_alarm}}\n    </div>\n  </div>\n</div>",
+        "contentPartials": [],
+        "defaultContent": "",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "styles",
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// Header status class based on active alarms\ncontext.handlebars.registerHelper('headerStatusClass', function(hasAlarm) {\n  return hasAlarm ? 'device-header__status--critical' : 'device-header__status--generating';\n});\n\n// Header status label\ncontext.handlebars.registerHelper('headerStatusLabel', function(hasAlarm) {\n  return hasAlarm ? 'Critical' : 'Normal';\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarm_state AS (\n    SELECT DISTINCT ON (device_id, code)\n        device_id,\n        code,\n        type,\n        severity\n    FROM dbt.int_events_alarms\n    WHERE device_id = ${device_id}\n      AND power_plant_id = ${power_plant_id}\n    ORDER BY device_id, code, timestamp DESC\n),\nactive_high_alarms AS (\n    SELECT DISTINCT device_id\n    FROM latest_alarm_state\n    WHERE severity = 'high'\n      AND type = 'alarm'\n)\nSELECT \n    d.id as device_id,\n    d.device_name,\n    d.cabin,\n    dt.name as device_type,\n    pp.id as power_plant_id,\n    pp.name as power_plant_name,\n    CASE WHEN aha.device_id IS NOT NULL THEN true ELSE false END as has_active_alarm\nFROM public.tb_devices d\nINNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\nINNER JOIN public.tb_power_plants pp ON d.power_plant_id = pp.id\nLEFT JOIN active_high_alarms aha ON aha.device_id = d.id\nWHERE d.id = ${device_id}\n  AND d.power_plant_id = ${power_plant_id}",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false,
+            "wrapHeaderText": false,
+            "wrapText": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "metric"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 224
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 159
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 8,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "last_update"
+          }
+        ]
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH device_info AS (\r\n    SELECT \r\n        d.id as device_id,\r\n        d.device_name,\r\n        d.cabin,\r\n        dt.name as device_type,\r\n        dt.description as device_type_description,\r\n        d.power_plant_id,\r\n        pp.name as power_plant_name,\r\n        pp.location as power_plant_location,\r\n        d.is_active\r\n    FROM public.tb_devices d\r\n    INNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\r\n    INNER JOIN public.tb_power_plants pp ON d.power_plant_id = pp.id\r\n    WHERE d.id = ${device_id}\r\n      AND d.power_plant_id = ${power_plant_id}\r\n),\r\nlatest_readings AS (\r\n    -- INVERTER readings\r\n    SELECT \r\n        ir.field_name as metric,\r\n        ir.value_formatted as value,\r\n        to_char(ir.timestamp, 'DD/MM/YYYY HH24:MI:SS') as last_update,\r\n        ir.display_order\r\n    FROM dbt.int_inverter_latest_readings ir\r\n    WHERE ir.device_id = ${device_id}\r\n      AND ir.power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    -- RELAY readings\r\n    SELECT \r\n        'Active Power' as metric,\r\n        ROUND(active_power::numeric, 2)::text || ' kW' as value,\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS') as last_update,\r\n        1 as display_order\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Line Voltage AB',\r\n        ROUND(line_voltage_ab::numeric, 2)::text || ' V',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        2\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Line Voltage BC',\r\n        ROUND(line_voltage_bc::numeric, 2)::text || ' V',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        3\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Line Voltage CA',\r\n        ROUND(line_voltage_ca::numeric, 2)::text || ' V',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        4\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Current Phase A',\r\n        ROUND(current_phase_a::numeric, 2)::text || ' A',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        5\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Current Phase B',\r\n        ROUND(current_phase_b::numeric, 2)::text || ' A',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        6\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Current Phase C',\r\n        ROUND(current_phase_c::numeric, 2)::text || ' A',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        7\r\n    FROM dbt.int_relay_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    -- LOGGER readings\r\n    SELECT \r\n        'Active Power',\r\n        ROUND(active_power::numeric, 2)::text || ' kW',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        1\r\n    FROM dbt.int_logger_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Daily Active Energy',\r\n        ROUND(daily_active_energy::numeric, 2)::text || ' kWh',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        2\r\n    FROM dbt.int_logger_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Cumulative Active Energy',\r\n        ROUND(cumulative_active_energy::numeric, 2)::text || ' kWh',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        3\r\n    FROM dbt.int_logger_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Efficiency',\r\n        ROUND(efficiency::numeric, 2)::text || ' %',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        4\r\n    FROM dbt.int_logger_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Inverters Producing',\r\n        inverters_producing_count::text,\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        5\r\n    FROM dbt.int_logger_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    -- WEATHER STATION readings\r\n    SELECT \r\n        'Irradiance GHI',\r\n        ROUND(irradiance_ghi::numeric, 2)::text || ' W/m²',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        1\r\n    FROM dbt.int_weather_station_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Irradiance POA',\r\n        ROUND(irradiance_poa::numeric, 2)::text || ' W/m²',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        2\r\n    FROM dbt.int_weather_station_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Air Temperature',\r\n        ROUND(air_temperature::numeric, 2)::text || ' °C',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        3\r\n    FROM dbt.int_weather_station_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n    \r\n    UNION ALL\r\n    \r\n    SELECT \r\n        'Module Temperature',\r\n        ROUND(module_temperature::numeric, 2)::text || ' °C',\r\n        to_char(timestamp, 'DD/MM/YYYY HH24:MI:SS'),\r\n        4\r\n    FROM dbt.int_weather_station_latest_readings\r\n    WHERE device_id = ${device_id}\r\n      AND power_plant_id = ${power_plant_id}\r\n)\r\n-- Resultado: Tabela simples com 3 colunas\r\nSELECT \r\n    metric,\r\n    value,\r\n    last_update\r\nFROM latest_readings\r\nORDER BY display_order;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false,
+            "wrapHeaderText": true,
+            "wrapText": true
+          },
+          "mappings": [
+            {
+              "options": {
+                "high": {
+                  "color": "red",
+                  "index": 0
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "description"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 190
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severity"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 286
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severity"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 206
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "applyToRow": true,
+                  "mode": "basic",
+                  "type": "color-background"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 9,
+        "x": 8,
+        "y": 3
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarms AS (\r\n  SELECT DISTINCT ON (device_id, code)\r\n    timestamp,\r\n    power_plant_id,\r\n    power_plant_name,\r\n    device_id,\r\n    device_name,\r\n    code,\r\n    value AS code_value,\r\n    description,\r\n    severity,\r\n    type\r\n  FROM dbt.int_events_alarms\r\n  WHERE power_plant_id = ${power_plant_id}\r\n    AND device_id = ${device_id}\r\n  ORDER BY\r\n    device_id,\r\n    code,\r\n    timestamp DESC\r\n)\r\nSELECT\r\n  \r\n  la.description,\r\n  la.severity,\r\n  la.type,\r\n  to_char(la.timestamp, 'DD/MM/YYYY HH24:MI:SS') AS date_time\r\nFROM latest_alarms la\r\nORDER BY\r\n  CASE \r\n    WHEN la.severity = 'high' AND la.code_value = 1 THEN 0\r\n    ELSE 1\r\n  END,\r\n  CASE la.severity\r\n    WHEN 'high' THEN 1\r\n    WHEN 'medium' THEN 2\r\n    ELSE 3\r\n  END,\r\n  la.timestamp DESC\r\nLIMIT 300;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "ff786imwl6k1sf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 7,
+        "x": 17,
+        "y": 3
+      },
+      "id": 4,
+      "options": {
+        "afterRender": "const apiEndpoint = context.grafana.replaceVariables('${api_endpoint}');\nconst commandToken = context.grafana.replaceVariables('${command_token}');\nconst deviceTypes = {1: 'inverter', 2: 'relay', 3: 'logger'};\n\ncontext.element.querySelectorAll('.unifilar__ctrl-btn').forEach(btn => {\n  if (btn.dataset.listenerAdded) return;\n  btn.dataset.listenerAdded = 'true';\n  \n  btn.addEventListener('click', (e) => {\n    e.stopPropagation();\n    \n    const userRole = (window.grafanaBootData && window.grafanaBootData.user) ? window.grafanaBootData.user.orgRole : '';\n    if (userRole !== 'Admin') {\n      alert('Access denied. This command is only available for Admin users.');\n      return;\n    }\n    \n    const action = btn.dataset.action;\n    const deviceId = btn.dataset.deviceId;\n    const deviceTypeId = parseInt(btn.dataset.deviceTypeId);\n    const deviceType = deviceTypes[deviceTypeId] || 'unknown';\n    const actionLabel = action === 'ligar' ? 'Turn ON' : action === 'desligar' ? 'Turn OFF' : 'Reset';\n    \n    if (!confirm(actionLabel + ' this ' + deviceType + '?')) return;\n    \n    const userName = window.grafanaBootData.user.name || 'Unknown';\n    const endpoint = action === 'reset' ? apiEndpoint + '/commands/' + deviceId + '/relay/reset' : apiEndpoint + '/commands/' + deviceId + '/' + deviceType + '/' + action;\n    \n    fetch(endpoint, {\n      method: 'POST',\n      headers: { \n        'Content-Type': 'application/json',\n        'X-Command-Token': commandToken\n      },\n      body: JSON.stringify({ username: userName, device_id: deviceId, timestamp: new Date().toISOString() })\n    })\n    .then(r => { if (r.ok) { location.reload(); } else { alert('Failed. Status: ' + r.status); } })\n    .catch(e => { alert('Error: ' + e.message); });\n  });\n});\n\n// Power Control - Inverter only\ncontext.element.querySelectorAll('.unifilar__power-btn').forEach(btn => {\n  if (btn.dataset.listenerAdded) return;\n  btn.dataset.listenerAdded = 'true';\n  \n  btn.addEventListener('click', (e) => {\n    e.stopPropagation();\n    \n    const userRole = (window.grafanaBootData && window.grafanaBootData.user) ? window.grafanaBootData.user.orgRole : '';\n    if (userRole !== 'Admin') {\n      alert('Access denied. This command is only available for Admin users.');\n      return;\n    }\n    \n    const deviceId = btn.dataset.deviceId;\n    const deviceTypeId = parseInt(btn.dataset.deviceTypeId);\n    const deviceTypeLabel = deviceTypeId === 3 ? 'logger' : 'inverter';\n    const input = context.element.querySelector('.unifilar__power-input');\n    const powerValue = parseFloat(input.value);\n    \n    if (isNaN(powerValue) || powerValue <= 0) {\n      alert('Please enter a valid power value greater than 0.');\n      return;\n    }\n    \n    if (!confirm('Set power to ' + powerValue + ' for this ' + deviceTypeLabel + '?')) return;\n    \n    fetch(apiEndpoint + '/commands/' + deviceId + '/' + deviceTypeLabel + '/potencia', {\n      method: 'POST',\n      headers: { \n        'Content-Type': 'application/json',\n        'X-Command-Token': commandToken\n      },\n      body: JSON.stringify({ power: powerValue })\n    })\n    .then(r => { if (r.ok) { alert('Power set successfully!'); input.value = ''; } else { alert('Failed. Status: ' + r.status); } })\n    .catch(e => { alert('Error: ' + e.message); });\n  });\n});",
+        "content": "<style>\n/* ===========================================\n   UNIFILAR DIAGRAM - BEM CSS\n   =========================================== */\n\n/* Block: unifilar */\n.unifilar {\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  padding: 16px;\n  font-family: Inter, system-ui, sans-serif;\n}\n\n/* Element: header */\n.unifilar__header {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 12px;\n}\n\n/* Element: card (inverter info and output) */\n.unifilar__card {\n  flex: 1;\n  min-width: 180px;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 14px 18px;\n  background: linear-gradient(135deg, rgba(45,45,50,0.95), rgba(35,35,40,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.08);\n  transition: all 0.2s ease;\n}\n\n.unifilar__card:hover {\n  border-color: rgba(255,255,255,0.15);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0,0,0,0.3);\n}\n\n/* Element: icon */\n.unifilar__icon {\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  font-size: 20px;\n}\n\n.unifilar__icon--inverter {\n  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(99,102,241,0.1));\n  color: #818cf8;\n}\n\n.unifilar__icon--output {\n  background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1));\n  color: #4ade80;\n}\n\n/* Element: info */\n.unifilar__info {\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\n/* Element: name */\n.unifilar__name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #e5e7eb;\n}\n\n/* Element: label */\n.unifilar__label {\n  font-size: 11px;\n  color: #6b7280;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n\n/* Element: value */\n.unifilar__value {\n  font-size: 12px;\n  color: #9ca3af;\n}\n\n/* Element: status badge */\n.unifilar__status {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 11px;\n  font-weight: 600;\n  padding: 4px 10px;\n  border-radius: 6px;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n\n.unifilar__status--ok {\n  background: rgba(34,197,94,0.15);\n  color: #4ade80;\n  border: 1px solid rgba(34,197,94,0.3);\n}\n\n.unifilar__status--critical {\n  background: rgba(239,68,68,0.15);\n  color: #f87171;\n  border: 1px solid rgba(239,68,68,0.3);\n  animation: pulse-critical 2s ease-in-out infinite;\n}\n\n@keyframes pulse-critical {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.7; }\n}\n\n/* Element: strings grid */\n.unifilar__strings {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));\n  gap: 8px;\n  padding: 16px;\n  background: linear-gradient(135deg, rgba(30,30,35,0.95), rgba(25,25,30,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.06);\n}\n\n/* Element: string box */\n.unifilar__string {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 10px 8px;\n  border-radius: 8px;\n  transition: all 0.2s ease;\n  cursor: default;\n}\n\n.unifilar__string:hover {\n  transform: scale(1.05);\n}\n\n/* Modifier: string ok */\n.unifilar__string--ok {\n  background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.06));\n  border: 1px solid rgba(34,197,94,0.25);\n}\n\n.unifilar__string--ok:hover {\n  border-color: rgba(34,197,94,0.5);\n  box-shadow: 0 0 12px rgba(34,197,94,0.2);\n}\n\n/* Modifier: string fault */\n.unifilar__string--fault {\n  background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.08));\n  border: 1px solid rgba(239,68,68,0.35);\n}\n\n.unifilar__string--fault:hover {\n  border-color: rgba(239,68,68,0.6);\n  box-shadow: 0 0 12px rgba(239,68,68,0.25);\n}\n\n/* Element: string number */\n.unifilar__string-num {\n  font-size: 10px;\n  color: #6b7280;\n  margin-bottom: 2px;\n}\n\n/* Element: string current */\n.unifilar__string-val {\n  font-size: 13px;\n  font-weight: 600;\n}\n\n.unifilar__string--ok .unifilar__string-val {\n  color: #4ade80;\n}\n\n.unifilar__string--fault .unifilar__string-val {\n  color: #f87171;\n}\n\n/* Element: summary footer */\n.unifilar__summary {\n  display: flex;\n  justify-content: center;\n  gap: 24px;\n  padding: 12px;\n  background: rgba(30,30,35,0.6);\n  border-radius: 8px;\n  border: 1px solid rgba(255,255,255,0.05);\n}\n\n.unifilar__stat {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  font-size: 12px;\n  color: #9ca3af;\n}\n\n.unifilar__stat-dot {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n}\n\n.unifilar__stat-dot--ok {\n  background: #4ade80;\n}\n\n.unifilar__stat-dot--fault {\n  background: #f87171;\n}\n\n/* ===========================================\n   CONTROL PANEL - Remote Commands\n   =========================================== */\n.unifilar__controls {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 16px;\n  background: linear-gradient(135deg, rgba(30,30,35,0.95), rgba(25,25,30,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.06);\n}\n\n.unifilar__controls-header {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding-bottom: 12px;\n  border-bottom: 1px solid rgba(255,255,255,0.06);\n}\n\n.unifilar__controls-icon {\n  font-size: 16px;\n}\n\n.unifilar__controls-title {\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: #8b949e;\n}\n\n.unifilar__controls-buttons {\n  display: flex;\n  gap: 12px;\n}\n\n.unifilar__ctrl-btn {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 8px;\n  padding: 12px 16px;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 13px;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  transition: all 0.2s ease;\n  border: none;\n}\n\n.unifilar__ctrl-btn--on {\n  background: rgba(34,197,94,0.15);\n  color: #4ade80;\n  border: 1px solid rgba(34,197,94,0.3);\n}\n\n.unifilar__ctrl-btn--on:hover {\n  background: rgba(34,197,94,0.25);\n  border-color: rgba(34,197,94,0.5);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(34,197,94,0.2);\n}\n\n.unifilar__ctrl-btn--off {\n  background: rgba(239,68,68,0.15);\n  color: #f87171;\n  border: 1px solid rgba(239,68,68,0.3);\n}\n\n.unifilar__ctrl-btn--off:hover {\n  background: rgba(239,68,68,0.25);\n  border-color: rgba(239,68,68,0.5);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(239,68,68,0.2);\n}\n\n.unifilar__ctrl-btn--reset {\n  background: rgba(245,158,11,0.15);\n  color: #fbbf24;\n  border: 1px solid rgba(245,158,11,0.3);\n}\n\n.unifilar__ctrl-btn--reset:hover {\n  background: rgba(245,158,11,0.25);\n  border-color: rgba(245,158,11,0.5);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(245,158,11,0.2);\n}\n\n.unifilar__ctrl-btn:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none !important;\n  box-shadow: none !important;\n}\n\n.unifilar__ctrl-btn-icon {\n  font-size: 16px;\n}\n\n.unifilar__controls-warning {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 10px;\n  color: #6b7280;\n  padding: 8px;\n  background: rgba(255,255,255,0.02);\n  border-radius: 6px;\n}\n\n/* ===========================================\n   LOGGER - Associated Inverters Grid\n   =========================================== */\n.unifilar__inverters {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 16px;\n  background: linear-gradient(135deg, rgba(30,30,35,0.95), rgba(25,25,30,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(255,255,255,0.06);\n}\n\n.unifilar__inverters-header {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding-bottom: 12px;\n  border-bottom: 1px solid rgba(255,255,255,0.06);\n}\n\n.unifilar__inverters-icon {\n  font-size: 16px;\n}\n\n.unifilar__inverters-title {\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: #8b949e;\n}\n\n.unifilar__inverters-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));\n  gap: 8px;\n}\n\n.unifilar__inverter-card {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 10px 12px;\n  background: rgba(99,102,241,0.08);\n  border: 1px solid rgba(99,102,241,0.2);\n  border-radius: 8px;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  cursor: pointer;\n}\n\n.unifilar__inverter-card:hover {\n  background: rgba(99,102,241,0.15);\n  border-color: rgba(99,102,241,0.4);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(99,102,241,0.15);\n}\n\n.unifilar__inverter-info {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n\n.unifilar__inverter-name {\n  font-size: 12px;\n  font-weight: 600;\n  color: #e5e7eb;\n}\n\n.unifilar__inverter-power {\n  font-size: 11px;\n  color: #4ade80;\n}\n\n.unifilar__inverter-arrow {\n  color: #818cf8;\n  font-size: 14px;\n}\n\n/* Element: bulk warning */\n.unifilar__bulk-warning {\n  display: flex;\n  align-items: flex-start;\n  gap: 10px;\n  padding: 12px 14px;\n  background: rgba(245,158,11,0.1);\n  border: 1px solid rgba(245,158,11,0.3);\n  border-radius: 8px;\n}\n\n.unifilar__bulk-warning-icon {\n  font-size: 18px;\n  line-height: 1;\n}\n\n.unifilar__bulk-warning-text {\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\n.unifilar__bulk-warning-text strong {\n  font-size: 12px;\n  font-weight: 600;\n  color: #fbbf24;\n}\n\n.unifilar__bulk-warning-text span {\n  font-size: 11px;\n  color: #d97706;\n  line-height: 1.4;\n}\n\n/* ===========================================\n   POWER CONTROL - Inverter Only\n   =========================================== */\n.unifilar__power-control {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 16px;\n  background: linear-gradient(135deg, rgba(30,30,35,0.95), rgba(25,25,30,0.95));\n  border-radius: 10px;\n  border: 1px solid rgba(99,102,241,0.2);\n}\n\n.unifilar__power-control-header {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding-bottom: 12px;\n  border-bottom: 1px solid rgba(255,255,255,0.06);\n}\n\n.unifilar__power-control-icon {\n  font-size: 16px;\n}\n\n.unifilar__power-control-title {\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: #818cf8;\n}\n\n.unifilar__power-control-row {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n\n.unifilar__power-control-label {\n  font-size: 13px;\n  color: #9ca3af;\n  font-weight: 500;\n}\n\n.unifilar__power-input {\n  flex: 1;\n  padding: 10px 14px;\n  background: rgba(255,255,255,0.05);\n  border: 1px solid rgba(255,255,255,0.1);\n  border-radius: 8px;\n  color: #e5e7eb;\n  font-size: 14px;\n  font-family: inherit;\n  outline: none;\n  transition: all 0.2s ease;\n}\n\n.unifilar__power-input:focus {\n  border-color: rgba(99,102,241,0.5);\n  background: rgba(255,255,255,0.08);\n  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);\n}\n\n.unifilar__power-input::placeholder {\n  color: #6b7280;\n}\n\n.unifilar__power-btn {\n  padding: 10px 20px;\n  background: rgba(99,102,241,0.15);\n  color: #818cf8;\n  border: 1px solid rgba(99,102,241,0.3);\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  transition: all 0.2s ease;\n  font-family: inherit;\n}\n\n.unifilar__power-btn:hover {\n  background: rgba(99,102,241,0.25);\n  border-color: rgba(99,102,241,0.5);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(99,102,241,0.2);\n}\n\n.unifilar__power-btn:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none !important;\n  box-shadow: none !important;\n}\n\n.unifilar__power-control-warning {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 10px;\n  color: #6b7280;\n  padding: 8px;\n  background: rgba(255,255,255,0.02);\n  border-radius: 6px;\n}\n</style>\n\n<div class=\"unifilar\">\n  <div class=\"unifilar__header\">\n    <div class=\"unifilar__card\">\n      <div class=\"unifilar__icon unifilar__icon--inverter\">⚡</div>\n      <div class=\"unifilar__info\">\n        <span class=\"unifilar__name\">{{data.[0].device_name}}</span>\n        <span class=\"unifilar__status {{statusClass data.[0].has_active_alarm}}\">\n          {{statusLabel data.[0].has_active_alarm}}\n        </span>\n      </div>\n    </div>\n    <div class=\"unifilar__card\">\n      <div class=\"unifilar__icon unifilar__icon--output\">🔌</div>\n      <div class=\"unifilar__info\">\n        <span class=\"unifilar__label\">AC Output</span>\n        <span class=\"unifilar__value\">{{data.[0].active_power_kw}} kW · {{data.[0].voltage_ab}} V · {{data.[0].frequency}} Hz</span>\n      </div>\n    </div>\n  </div>\n\n  {{#if (isInverter data.[0].device_type_id)}}\n  <div class=\"unifilar__strings\">\n    {{#each data}}\n    <div class=\"unifilar__string {{stringClass string_current}}\">\n      <span class=\"unifilar__string-num\">S{{string_number}}</span>\n      <span class=\"unifilar__string-val\">{{string_current}} A</span>\n    </div>\n    {{/each}}\n  </div>\n\n  <div class=\"unifilar__summary\">\n    <div class=\"unifilar__stat\">\n      <span class=\"unifilar__stat-dot unifilar__stat-dot--ok\"></span>\n      <span>{{countOk data}} strings OK</span>\n    </div>\n    <div class=\"unifilar__stat\">\n      <span class=\"unifilar__stat-dot unifilar__stat-dot--fault\"></span>\n      <span>{{countFault data}} with fault</span>\n    </div>\n  </div>\n  {{/if}}\n\n  {{#if (isLogger data.[0].device_type_id)}}\n  <div class=\"unifilar__inverters\">\n    <div class=\"unifilar__inverters-header\">\n      <span class=\"unifilar__inverters-icon\">⚡</span>\n      <span class=\"unifilar__inverters-title\">Associated Inverters ({{countInverters data}})</span>\n    </div>\n    <div class=\"unifilar__inverters-grid\">\n      {{#each data}}\n      {{#if associated_inverter_id}}\n      <a href=\"/d/adsn27w/device_view?var-power_plant_id={{power_plant_id}}&var-device_id={{associated_inverter_id}}\" class=\"unifilar__inverter-card\">\n        <div class=\"unifilar__inverter-info\">\n          <span class=\"unifilar__inverter-name\">{{associated_inverter_name}}</span>\n          <span class=\"unifilar__inverter-power\">{{associated_inverter_power}} kW</span>\n        </div>\n        <span class=\"unifilar__inverter-arrow\">→</span>\n      </a>\n      {{/if}}\n      {{/each}}\n    </div>\n  </div>\n\n  <div class=\"unifilar__bulk-warning\">\n    <span class=\"unifilar__bulk-warning-icon\">⚠️</span>\n    <div class=\"unifilar__bulk-warning-text\">\n      <strong>Bulk Control Warning</strong>\n      <span>Commands sent to this logger will affect ALL {{countInverters data}} associated inverters simultaneously.</span>\n    </div>\n  </div>\n  {{/if}}\n\n  <div class=\"unifilar__controls\">\n    <div class=\"unifilar__controls-header\">\n      <span class=\"unifilar__controls-title\">Remote Control</span>\n    </div>\n    <div class=\"unifilar__controls-buttons\">\n      <button class=\"unifilar__ctrl-btn unifilar__ctrl-btn--on\" data-action=\"ligar\" data-device-id=\"{{data.[0].device_id}}\" data-device-type-id=\"{{data.[0].device_type_id}}\">\n        <span class=\"unifilar__ctrl-btn-icon\">▶</span>\n        Turn ON\n      </button>\n      <button class=\"unifilar__ctrl-btn unifilar__ctrl-btn--off\" data-action=\"desligar\" data-device-id=\"{{data.[0].device_id}}\" data-device-type-id=\"{{data.[0].device_type_id}}\">\n        <span class=\"unifilar__ctrl-btn-icon\">◼</span>\n        Turn OFF\n      </button>\n      {{#if (isRelay data.[0].device_type_id)}}\n      <button class=\"unifilar__ctrl-btn unifilar__ctrl-btn--reset\" data-action=\"reset\" data-device-id=\"{{data.[0].device_id}}\" data-device-type-id=\"{{data.[0].device_type_id}}\">\n        <span class=\"unifilar__ctrl-btn-icon\">↻</span>\n        Reset\n      </button>\n      {{/if}}\n    </div>\n  </div>\n\n  {{#if (isInverterOrLogger data.[0].device_type_id)}}\n  <div class=\"unifilar__power-control\">\n    <div class=\"unifilar__power-control-header\">\n      <span class=\"unifilar__power-control-icon\">⚡</span>\n      <span class=\"unifilar__power-control-title\">Power Control</span>\n    </div>\n    <div class=\"unifilar__power-control-row\">\n      <label class=\"unifilar__power-control-label\">Power:</label>\n      <input type=\"number\" class=\"unifilar__power-input\" data-device-id=\"{{data.[0].device_id}}\" data-device-type-id=\"{{data.[0].device_type_id}}\" placeholder=\"0\" min=\"0\" step=\"any\" />\n      <button class=\"unifilar__power-btn\" data-device-id=\"{{data.[0].device_id}}\" data-device-type-id=\"{{data.[0].device_type_id}}\">\n        SET POWER\n      </button>\n    </div>\n    <div class=\"unifilar__power-control-warning\">\n      <span>⚠️</span>\n      <span>Admin only. Value must be greater than 0.</span>\n    </div>\n  </div>\n  {{/if}}\n</div>\n\n",
+        "contentPartials": [],
+        "defaultContent": "The query didn't return any results.",
+        "editor": {
+          "format": "auto",
+          "language": "html"
+        },
+        "editors": [
+          "helpers"
+        ],
+        "externalStyles": [],
+        "helpers": "// Status class based on active alarms\ncontext.handlebars.registerHelper('statusClass', function(hasAlarm) {\n  return hasAlarm ? 'unifilar__status--critical' : 'unifilar__status--ok';\n});\n\n// Status label based on active alarms\ncontext.handlebars.registerHelper('statusLabel', function(hasAlarm) {\n  return hasAlarm ? 'CRITICAL' : 'NORMAL';\n});\n\n// String class based on current\ncontext.handlebars.registerHelper('stringClass', function(current) {\n  return current >= 1 ? 'unifilar__string--ok' : 'unifilar__string--fault';\n});\n\n// Count OK strings\ncontext.handlebars.registerHelper('countOk', function(data) {\n  return data.filter(d => d.string_current >= 1).length;\n});\n\n// Count fault strings\ncontext.handlebars.registerHelper('countFault', function(data) {\n  return data.filter(d => d.string_current < 1).length;\n});\n\n// Check if device is inverter (device_type_id = 1)\ncontext.handlebars.registerHelper('isInverter', function(deviceTypeId) {\n  return deviceTypeId === 1;\n});\n\n// Check if device is relay (device_type_id = 2)\ncontext.handlebars.registerHelper('isRelay', function(deviceTypeId) {\n  return deviceTypeId === 2;\n});\n\n// Check if device is logger (device_type_id = 3)\ncontext.handlebars.registerHelper('isLogger', function(deviceTypeId) {\n  return deviceTypeId === 3;\n});\n\n// Check if device is inverter or logger (for power control)\ncontext.handlebars.registerHelper('isInverterOrLogger', function(deviceTypeId) {\n  return deviceTypeId === 1 || deviceTypeId === 3;\n});\n\n// Count associated inverters for logger\ncontext.handlebars.registerHelper('countInverters', function(data) {\n  return data.filter(d => d.associated_inverter_id != null).length;\n});",
+        "renderMode": "allRows",
+        "styles": "",
+        "wrap": true
+      },
+      "pluginVersion": "6.2.0",
+      "targets": [
+        {
+          "dataset": "powerplants",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH latest_alarm_state AS (\n    SELECT DISTINCT ON (device_id, code)\n        device_id,\n        code,\n        type,\n        severity\n    FROM dbt.int_events_alarms\n    WHERE device_id = ${device_id}\n      AND power_plant_id = ${power_plant_id}\n    ORDER BY device_id, code, timestamp DESC\n),\nactive_high_alarms AS (\n    SELECT DISTINCT device_id\n    FROM latest_alarm_state\n    WHERE severity = 'high'\n      AND type = 'alarm'\n),\ninverter_data AS (\n    SELECT\n        s.device_id,\n        s.power_plant_id,\n        s.device_name,\n        s.string_number,\n        s.string_current,\n        CASE WHEN aha.device_id IS NOT NULL THEN true ELSE false END as has_active_alarm,\n        s.timestamp,\n        1 as device_type_id,\n        (SELECT ROUND(value_numeric, 2) \n         FROM dbt.int_inverter_latest_readings r \n         WHERE r.device_id = s.device_id AND r.field_name = 'Active Power'\n         LIMIT 1) AS active_power_kw,\n        (SELECT ROUND(value_numeric, 1) \n         FROM dbt.int_inverter_latest_readings r \n         WHERE r.device_id = s.device_id AND r.field_name = 'Voltage: AB line'\n         LIMIT 1) AS voltage_ab,\n        (SELECT ROUND(value_numeric, 2) \n         FROM dbt.int_inverter_latest_readings r \n         WHERE r.device_id = s.device_id AND r.field_name = 'Frequency'\n         LIMIT 1) AS frequency,\n        NULL::integer as associated_inverter_id,\n        NULL::text as associated_inverter_name,\n        NULL::numeric as associated_inverter_power\n    FROM dbt.stg_inverter_string_data s\n    LEFT JOIN active_high_alarms aha ON aha.device_id = s.device_id\n    WHERE s.power_plant_id = ${power_plant_id}\n      AND s.device_id = ${device_id}\n),\nrelay_data AS (\n    SELECT\n        d.id as device_id,\n        d.power_plant_id,\n        d.device_name,\n        NULL::integer as string_number,\n        NULL::numeric as string_current,\n        CASE WHEN aha.device_id IS NOT NULL THEN true ELSE false END as has_active_alarm,\n        r.timestamp,\n        2 as device_type_id,\n        ROUND(r.active_power::numeric, 2) as active_power_kw,\n        ROUND(r.line_voltage_ab::numeric, 1) as voltage_ab,\n        NULL::numeric as frequency,\n        NULL::integer as associated_inverter_id,\n        NULL::text as associated_inverter_name,\n        NULL::numeric as associated_inverter_power\n    FROM public.tb_devices d\n    LEFT JOIN active_high_alarms aha ON aha.device_id = d.id\n    LEFT JOIN dbt.int_relay_latest_readings r ON r.device_id = d.id\n    WHERE d.power_plant_id = ${power_plant_id}\n      AND d.id = ${device_id}\n      AND d.device_type_id = 2\n),\nlogger_data AS (\n    SELECT\n        logger.id as device_id,\n        logger.power_plant_id,\n        logger.device_name,\n        ROW_NUMBER() OVER (ORDER BY inv.id) as string_number,\n        NULL::numeric as string_current,\n        CASE WHEN aha.device_id IS NOT NULL THEN true ELSE false END as has_active_alarm,\n        lr.timestamp,\n        3 as device_type_id,\n        ROUND(lr.active_power::numeric, 2) as active_power_kw,\n        ROUND(lr.line_voltage_ab::numeric, 1) as voltage_ab,\n        NULL::numeric as frequency,\n        inv.id as associated_inverter_id,\n        inv.device_name as associated_inverter_name,\n        COALESCE((SELECT ROUND(value_numeric, 2) \n         FROM dbt.int_inverter_latest_readings ir \n         WHERE ir.device_id = inv.id AND ir.field_name = 'Active Power'\n         LIMIT 1), 0) as associated_inverter_power\n    FROM public.tb_devices logger\n    LEFT JOIN active_high_alarms aha ON aha.device_id = logger.id\n    LEFT JOIN dbt.int_logger_latest_readings lr ON lr.device_id = logger.id\n    LEFT JOIN public.tb_devices inv ON inv.power_plant_id = logger.power_plant_id \n        AND inv.cabin = logger.cabin \n        AND inv.device_type_id = 1\n        AND inv.is_active = true\n    WHERE logger.power_plant_id = ${power_plant_id}\n      AND logger.id = ${device_id}\n      AND logger.device_type_id = 3\n)\nSELECT * FROM inverter_data\nUNION ALL\nSELECT * FROM relay_data\nUNION ALL\nSELECT * FROM logger_data\nORDER BY device_id, string_number NULLS LAST",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "marcusolsson-dynamictext-panel"
+    }
+  ],
+  "preload": false,
+  "refresh": "10s",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "https://api.nexus-gridco.com.br",
+          "value": "https://api.nexus-gridco.com.br"
+        },
+        "description": "Base URL for device command API (Admin only)",
+        "hide": 2,
+        "label": "API Endpoint",
+        "name": "api_endpoint",
+        "options": [
+          {
+            "selected": true,
+            "text": "https://api.nexus-gridco.com.br",
+            "value": "https://api.nexus-gridco.com.br"
+          }
+        ],
+        "query": "https://api.nexus-gridco.com.br",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "CHANGE_ME",
+          "value": "CHANGE_ME"
+        },
+        "description": "Authentication token for command API (X-Command-Token header)",
+        "hide": 2,
+        "label": "Command Token",
+        "name": "command_token",
+        "options": [
+          {
+            "selected": true,
+            "text": "CHANGE_ME",
+            "value": "CHANGE_ME"
+          }
+        ],
+        "query": "CHANGE_ME",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "(312) São Bento V",
+          "value": "5"
+        },
+        "definition": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nORDER BY name;\n",
+        "name": "power_plant_id",
+        "options": [],
+        "query": "SELECT\n  name AS __text,\n  id   AS __value\nFROM public.tb_power_plants\nORDER BY name;\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "Logger 1.1 (logger)",
+          "value": "70"
+        },
+        "definition": "SELECT \n    d.device_name || ' (' || dt.name || ')' as __text,\n    d.id as __value\nFROM public.tb_devices d\nINNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\nWHERE d.power_plant_id = ${power_plant_id}\n  AND d.is_active = true\nORDER BY \n    dt.id,\n    d.device_name;",
+        "name": "device_id",
+        "options": [],
+        "query": "SELECT \n    d.device_name || ' (' || dt.name || ')' as __text,\n    d.id as __value\nFROM public.tb_devices d\nINNER JOIN public.tb_devices_type dt ON d.device_type_id = dt.id\nWHERE d.power_plant_id = ${power_plant_id}\n  AND d.is_active = true\nORDER BY \n    dt.id,\n    d.device_name;",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "device_view",
+  "uid": "adsn27w",
+  "version": 42
+}
